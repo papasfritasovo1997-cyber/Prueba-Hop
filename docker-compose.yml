@@ -1,0 +1,30 @@
+# Pantallas web:   docker compose up --build web      → http://localhost:8080
+# Consola:         docker compose run --rm consola
+services:
+  web:
+    build: .
+    image: antdron:latest
+    command: ["web"]
+    ports:
+      - "8080:8080"
+    volumes:
+      - hormiguero-db:/opt/antdron/db
+    healthcheck:
+      test: ["CMD-SHELL", "exec 3<>/dev/tcp/127.0.0.1/8080 && printf 'GET /salud HTTP/1.0\\r\\n\\r\\n' >&3 && grep -q OK <&3"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+
+  consola:
+    build: .
+    image: antdron:latest
+    command: ["consola"]
+    stdin_open: true
+    tty: true
+    profiles: ["consola"]
+    volumes:
+      - ./config:/opt/antdron/config:ro
+      - ./data:/opt/antdron/data
+
+volumes:
+  hormiguero-db:

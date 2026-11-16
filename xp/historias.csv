@@ -1,0 +1,22 @@
+# Backlog XP del proyecto ANTDRON. Formato: ver LectorBacklog (responsables con ',' y criterios con '|').
+# Iteración 1 = framework XP (parte 1). Iteraciones 2-4 = aplicación AntCiberDron (parte 2).
+id;titulo;como;quiero;para;prioridad;puntos;iteracion;estado;responsables;criterios
+XP-01;Backlog de historias;equipo XP;registrar historias de usuario en un CSV;priorizarlas y estimarlas;ALTA;2;1;TERMINADA;Integrante 2;Lee id, prioridad, puntos, iteración y estado|Indica la línea con error
+XP-02;Plan de entregas y velocidad;encargado de seguimiento;agrupar historias por iteración y medir la velocidad;planificar con datos reales;ALTA;3;1;TERMINADA;Integrante 4;Avance por iteración|Propuesta según velocidad|Clima de ayer y promedio
+XP-03;Equipo y rotación de parejas;gestor;cargar el equipo y rotar parejas;que todos programen con todos;ALTA;2;1;TERMINADA;Integrante 6;Lee equipo.properties e integrantes.csv|Cada pareja se repite una sola vez por ciclo
+XP-04;Tarjetas CRC;consultor;declarar tarjetas CRC en las clases;que el diseño no se desactualice;MEDIA;2;1;TERMINADA;Integrante 5;Anotación @TarjetaCRC|Genera Markdown
+XP-05;Pruebas de aceptación por historia;encargado de pruebas;vincular cada prueba con su historia;saber qué historias están aceptadas;ALTA;3;1;TERMINADA;Integrante 3;Anotación @Historia|Reporte ACEPTADA/RECHAZADA/SIN_PRUEBAS
+XP-06;Línea de comandos e integración continua;entrenador;usar el framework desde la consola y en CI;seguir el proceso en cada reunión;ALTA;3;1;TERMINADA;Integrante 1;Comandos equipo, backlog, plan, velocidad, parejas, crc y aceptacion|Pipeline que compila y prueba cada push
+HU-01;Autenticación;integrante o profesor;ingresar con usuario y contraseña;usar el sistema;ALTA;3;2;TERMINADA;Integrante 2;Usuarios del grupo y patmic/123|Máximo 3 intentos
+HU-02;Presentar equipo;profesor;ver el equipo y sus alumnos;identificar al grupo;ALTA;1;2;TERMINADA;Integrante 2;Formato [+] TEAM [N]: nombre|Alumno i con cédula y nombre
+HU-03;Generar Grupo##.csv;KGD;crear el archivo de coordenadas desde las cédulas;atacar las coordenadas del equipo;ALTA;3;2;TERMINADA;Integrante 3;Una coordenada por dígito de cédula|Horario de la estrategia OTAN|Palabra w del lenguaje de la coordenada
+HU-04;Leer coordenadas con loading;KGD;leer y presentar Grupo##.csv;ver las coordenadas ucranianas;ALTA;3;2;TERMINADA;Integrante 3;Loading giratorio hasta 100% por línea|Tabla con Loading, Geoposición, días y Tipo Arsenal
+HU-05;Hormigas y alimentación;KGD;que el TIPO_HORMIGA nazca como HLarva;tener hormigas que se transforman al comer;ALTA;3;2;TERMINADA;Integrante 4;HLarva vive con néctar|Se transforma con su ALIMENTO|TIPO_HORMIGA vive solo con su ALIMENTO
+HU-06;Autómata de la bomba;KGD;un autómata con el último dígito de cada cédula;destruir solo el arsenal definido;ALTA;5;3;TERMINADA;Integrante 1;A=(Q,Σ,δ,q0,F) mínimo|Gramática y grafo|Explota solo en coordenadas objetivo
+HU-07;IA buscar arsenal;KGD;que el AntCiberDron busque el tipo de arsenal;saber dónde explota la bomba;ALTA;3;3;TERMINADA;Integrante 5;buscar devuelve true o false|Presenta Geoposición, Tipo Arsenal y Acción
+HU-08;Armas en patas delanteras;KGD;cargar metralleta y láser;atacar por tierra;MEDIA;2;3;TERMINADA;Integrante 5;Metralleta solo en pata delantera derecha|Láser en la izquierda con potencia según energía
+HU-09;Vuelo y fuente de poder;KGD;volar con el turbo reactor;dominar el aire;MEDIA;2;3;TERMINADA;Integrante 2;Turbo reactor en la espalda consume energía|Recarga y reemplazo asistidos por la IIA
+HU-10;Idiomas;experto parlante;entrenar léxico, gramática y fonética;que el AntCiberDron hable inglés y español;BAJA;2;4;TERMINADA;Integrante 4;Solo expertos del idioma pueden entrenarlo
+HU-11;Pantallas del hormiguero virtual;usuario KGD;registrarme y crear mis hormigas;tener mi hormiguero virtual;ALTA;4;4;TERMINADA;Integrante 6;Registro e ingreso|Crear HLarva|Alimentar y ver su estado
+HU-12;Persistencia;usuario KGD;que mi hormiguero se guarde;no perder mis hormigas;MEDIA;3;4;TERMINADA;Integrante 6;SQLite según el modelo ER|Claves con sal y hash
+HU-13;Aplicación dockerizada;profesor;ejecutar la aplicación con Docker;probarla sin instalar Java;ALTA;2;4;TERMINADA;Integrante 5;docker compose run consola|docker compose up web

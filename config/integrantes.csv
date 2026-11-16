@@ -1,0 +1,10 @@
+# Integrantes del equipo (DATOS DE EJEMPLO: reemplazar por las cédulas y nombres reales).
+# claveSha256 se obtiene con: java -jar antdron/target/antdron.jar hash MI_CLAVE
+# Clave de ejemplo de todos los integrantes: 1234. El profesor (patmic / 123) está incluido en el código.
+cedula;nombre;usuario;claveSha256;rol
+11036359;Pepito Alimaña;integrante1;03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4;ENTRENADOR
+11036353;Juana Galarza;integrante2;03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4;CLIENTE
+15036392;Carlos Andrade;integrante3;03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4;ENCARGADO_PRUEBAS
+12047586;Lucía Benítez;integrante4;03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4;ENCARGADO_SEGUIMIENTO
+13058674;Mateo Cárdenas;integrante5;03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4;CONSULTOR
+14069780;Sofía Delgado;integrante6;03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4;GESTOR
