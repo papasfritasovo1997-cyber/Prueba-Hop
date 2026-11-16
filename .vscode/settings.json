@@ -1,0 +1,18 @@
+{
+    // Proyecto Java sin Maven: VS Code compila estas cuatro carpetas juntas en bin/.
+    "java.project.sourcePaths": [
+        "framework-xp/src",
+        "framework-xp/pruebas",
+        "antdron/src",
+        "antdron/pruebas"
+    ],
+    "java.project.outputPath": "bin",
+    // JavaFX 21 para Windows (las DLL vienen dentro de los .jar).
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar"
+    ],
+    "files.encoding": "utf8",
+    "files.exclude": {
+        "bin": true
+    }
+}

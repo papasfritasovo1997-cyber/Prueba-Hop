@@ -50,8 +50,10 @@ public enum Practica {
             + "y se ejecuta con el EjecutorPruebas del framework."),
     PROGRAMACION_PAREJAS(Fase.DESARROLLO, "Programación por parejas", RolXP.GESTOR, "config/integrantes.csv",
             "Todo el código de producción se escribe en parejas; conductor y navegante cambian cada 30 minutos."),
-    INTEGRACION(Fase.DESARROLLO, "Integración continua", RolXP.GESTOR, ".github/workflows/ci.yml",
-            "Cada push compila y ejecuta todas las pruebas; no se integra nada con la integración en rojo."),
+    INTEGRACION(Fase.DESARROLLO, "Integración continua", RolXP.GESTOR, ".vscode/launch.json",
+            "Cada pareja integra varias veces al día: actualiza la rama principal, ejecuta en VS Code "
+            + "«Pruebas + reporte de aceptación» y solo sube si todas las pruebas pasan. "
+            + "La imagen Docker vuelve a ejecutarlas al construirse."),
 
     // IV. Pruebas
     IMPLANTACION(Fase.PRUEBAS, "Implantación", RolXP.CONSULTOR, "Dockerfile",

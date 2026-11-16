@@ -7,7 +7,7 @@ El proyecto tiene **dos partes independientes**:
 | **1. Framework XP** | `framework-xp/` | Dicta las directrices de XP (fases, prácticas, roles, reglas, DoD) y trae herramientas para planificar, medir, probar y **verificar** que se cumplen. | No sabe nada de la aplicación. |
 | **2. Aplicación AntCiberDron** | `antdron/` | Lo que pide el enunciado, con pantallas **JavaFX**: login, `Grupo##.csv`, autómata, bomba, hormigas, IA, hormiguero virtual y Docker. | **Sigue** las directrices, pero su código no importa nada del framework: se compila sin él. Solo sus pruebas usan el ejecutor de pruebas del framework. |
 
-No se usa Maven: `herramientas/Construir.java` descarga JavaFX, compila, prueba y ejecuta (`antdron.cmd` en Windows, `./antdron.sh` en Linux/macOS). Las reglas completas están en `framework-xp/docs/guia-xp.md`.
+No se usa Maven: se abre la carpeta en **VS Code** (Windows), que compila todo con los `.jar` de JavaFX de `lib/`; Docker compila lo mismo con `javac`. Las reglas completas están en `framework-xp/docs/guia-xp.md`.
 
 ## 1. Resumen por integrante
 
@@ -28,14 +28,14 @@ Total: 16 puntos de framework + 37 de aplicación = 53 puntos.
 
 | Historia | Responsable | Paquete | Comandos |
 |---|---|---|---|
-| **XP-01** Núcleo y directrices | Integrante 1 | `ec.edu.epn.xp` (`XpCli`, `ComandoXP`, `ContextoXP`), `ec.edu.epn.xp.directrices`, `docs/`, `herramientas/Construir.java` | `ayuda`, `directrices`, `verificar` |
+| **XP-01** Núcleo y directrices | Integrante 1 | `ec.edu.epn.xp` (`XpCli`, `ComandoXP`, `ContextoXP`), `ec.edu.epn.xp.directrices`, `docs/`, `.vscode/` | `ayuda`, `directrices`, `verificar` |
 | **XP-02** Historias de usuario | Integrante 2 | `ec.edu.epn.xp.planificacion` | `backlog` |
 | **XP-03** Plan de entregas y velocidad | Integrante 4 | `ec.edu.epn.xp.seguimiento` | `plan [--proponer N]`, `velocidad` |
 | **XP-04** Diseño | Integrante 5 | `ec.edu.epn.xp.diseno` | `crc` |
-| **XP-05** Pruebas y aceptación | Integrante 3 | `ec.edu.epn.xp.pruebas` (`@Prueba`, `@Historia`, `Afirmar`, `EjecutorPruebas`) | `aceptacion`, y `antdron.cmd probar` |
-| **XP-06** Desarrollo | Integrante 6 | `ec.edu.epn.xp.desarrollo`, `.github/workflows/ci.yml` | `equipo`, `parejas [ronda]` |
+| **XP-05** Pruebas y aceptación | Integrante 3 | `ec.edu.epn.xp.pruebas` (`@Prueba`, `@Historia`, `Afirmar`, `EjecutorPruebas`) | `aceptacion`, y «Pruebas + reporte de aceptación» en VS Code |
+| **XP-06** Desarrollo | Integrante 6 | `ec.edu.epn.xp.desarrollo` | `equipo`, `parejas [ronda]` |
 
-Cada comando implementa `ec.edu.epn.xp.ComandoXP` y se registra con una línea en `framework-xp/recursos/META-INF/services/ec.edu.epn.xp.ComandoXP`. Nadie toca el código de otro.
+Cada comando implementa `ec.edu.epn.xp.ComandoXP` y se registra con una línea en `framework-xp/src/META-INF/services/ec.edu.epn.xp.ComandoXP`. Nadie toca el código de otro.
 
 ## 3. Parte 2 · Aplicación AntCiberDron (`antdron/`)
 
@@ -80,7 +80,7 @@ Cada comando implementa `ec.edu.epn.xp.ComandoXP` y se registra con una línea e
 | 6 | XP-06 · HU-12 Persistencia | 6 | HU-11 Pantallas del hormiguero | 3 |
 | | **Total** | **35** | | **18** |
 
-El horario de cada día (planificación, reuniones de pie, bloques en pareja, aceptación y retrospectiva) está en la sección 6 de `framework-xp/docs/guia-xp.md`. Lo que no se termine el día 1 entra al plan del día 2 según la velocidad medida (`antdron.cmd xp velocidad`).
+El horario de cada día (planificación, reuniones de pie, bloques en pareja, aceptación y retrospectiva) está en la sección 6 de `framework-xp/docs/guia-xp.md`. Lo que no se termine el día 1 entra al plan del día 2 según la velocidad medida (`xp velocidad`).
 
 ## 5. Parejas
 
@@ -91,11 +91,11 @@ El horario de cada día (planificación, reuniones de pie, bloques en pareja, ac
 | Día 2 · mañana | 1 – 4 | 5 – 3 | 6 – 2 |
 | Día 2 · tarde | 1 – 3 | 4 – 2 | 5 – 6 |
 
-`antdron.cmd xp parejas` calcula la rotación con los nombres de `config/integrantes.csv`.
+`xp parejas` calcula la rotación con los nombres de `config/integrantes.csv`.
 
 ## 6. Reglas de entrega
 
 1. Cada integrante sube **solo** los archivos de su sección, en una rama por historia y por pull request.
-2. Antes del pull request, `antdron.cmd probar` debe terminar en «TODAS LAS PRUEBAS PASARON».
-3. Otra pareja revisa el pull request y la CI debe quedar en verde.
+2. Antes del pull request, «Pruebas + reporte de aceptación» en VS Code debe terminar en «TODAS LAS PRUEBAS PASARON».
+3. Otra pareja revisa el pull request y vuelve a ejecutar «Pruebas + reporte de aceptación» en VS Code antes de aprobarlo.
 4. Cada integrante escribe **su propia cédula** en `config/integrantes.csv` (primera columna). La aplicación regenera `datos/Grupo##.csv`, la bomba y el autómata al pulsar «Recargar configuración».

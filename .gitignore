@@ -1,12 +1,11 @@
-# Generado por herramientas/Construir.java
+# Compilado por VS Code y resultados de las pruebas
+bin/
 build/
-.javafx/
 
 # Generado por la aplicación a partir de config/ (se puede regenerar en cualquier momento)
 datos/hormiguero/
 
 .idea/
-.vscode/
 *.iml
 .DS_Store
 .hoplite/

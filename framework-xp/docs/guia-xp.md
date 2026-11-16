@@ -6,7 +6,7 @@ Este framework es la **Parte 1** del proyecto. Define *cómo* trabaja el equipo 
 
 ```
 Framework XP (framework-xp/)           Aplicación (antdron/)
-  dicta las directrices  ───────────▶   las cumple (historias, pruebas, CRC, CI, Docker)
+  dicta las directrices  ───────────▶   las cumple (historias, pruebas, CRC, Docker)
   verifica los artefactos ◀──────────   produce los artefactos
   (sin dependencia de código entre ambos)
 ```
@@ -30,7 +30,7 @@ Todos los roles programan. El rol de cada integrante se declara en `config/integ
 
 ## 3. Directrices por fase
 
-`antdron.cmd xp directrices` muestra esta tabla con las rutas del proyecto. La fuente de verdad es `ec.edu.epn.xp.directrices.Practica`.
+`xp directrices` muestra esta tabla con las rutas del proyecto. La fuente de verdad es `ec.edu.epn.xp.directrices.Practica`.
 
 | Fase | Práctica | Responsable | Artefacto por defecto | Regla |
 |---|---|---|---|---|
@@ -48,7 +48,7 @@ Todos los roles programan. El rol de cada integrante se declara en `config/integ
 | III. Desarrollo | Disponibilidad del cliente | Cliente | `config/integrantes.csv` | Hay un integrante con rol CLIENTE que responde dudas y acepta historias. |
 | | Unidad de pruebas | Tester | `pruebas` | La prueba se escribe antes que el código; cada clase de prueba lleva `@Historia("<id>")`. |
 | | Programación por parejas | Gestor | `config/integrantes.csv` | Todo el código de producción se escribe en parejas. |
-| | Integración continua | Gestor | `.github/workflows/ci.yml` | Cada push compila y prueba; no se integra con la CI en rojo. |
+| | Integración continua | Gestor | `.vscode/launch.json` | Cada pareja integra varias veces al día: actualiza la rama principal, ejecuta «Pruebas + reporte de aceptación» en VS Code y solo sube si todo pasa. |
 | IV. Pruebas | Implantación | Consultor | `Dockerfile` | Cada entrega se despliega con un solo comando. |
 | | Pruebas de aceptación | Tester | `xp/pruebas-aceptacion.md` | Una historia está terminada solo si pasan todas sus pruebas de aceptación. |
 
@@ -59,7 +59,7 @@ artefacto.UNIDAD_PRUEBAS=antdron/pruebas
 artefacto.IMPLANTACION=Dockerfile
 ```
 
-`antdron.cmd xp verificar` revisa que exista cada artefacto e indica el responsable de lo que falta. Termina con código 1 si falta algo, así que la integración continua puede usarlo como control.
+`xp verificar` revisa que exista cada artefacto e indica el responsable de lo que falta. Termina con código 1 si falta algo, así que sirve como control antes de integrar.
 
 ## 4. Formatos mínimos compartidos
 
@@ -88,9 +88,9 @@ class BombaTest {
 }
 ```
 
-`antdron.cmd probar` compila y ejecuta las pruebas del framework y de la aplicación, guarda los resultados por historia en `build/pruebas/resultados.csv` y escribe el reporte `xp/pruebas-aceptacion.md`.
+En VS Code, «Pruebas + reporte de aceptación» (el comando `xp probar`) ejecuta las pruebas del framework y de la aplicación, guarda los resultados por historia en `build/pruebas/resultados.csv` y escribe el reporte `xp/pruebas-aceptacion.md`.
 
-Solo las **pruebas** de la aplicación usan el framework. El código de la aplicación (`antdron/src`) se compila **sin** el framework en el classpath: si alguien lo importara por error, la compilación fallaría. Así la aplicación vale por sí sola y el framework dicta y verifica el proceso.
+Solo las **pruebas** de la aplicación usan el framework. El código de la aplicación (`antdron/src`) no lo importa: `IndependenciaTest` falla si alguien lo hace, y la imagen Docker compila la aplicación sola. Así la aplicación vale por sí sola y el framework dicta y verifica el proceso.
 
 ## 6. Ciclo de una iteración
 
@@ -102,7 +102,7 @@ En ANTDRON el proyecto dura **2 días** y cada día es una iteración. Un punto 
 | Inicio | 15 min | **Reunión de pie:** qué hará cada uno, qué lo bloquea. El Gestor publica las parejas de la mañana (`xp parejas`). |
 | Mañana | ~3 h | **Desarrollo:** prueba → código → reciclaje, en pareja y en una rama por historia. |
 | Mediodía | 15 min | **Reunión de pie de control** y rotación de parejas para la tarde. |
-| Tarde | ~3 h | **Desarrollo e integración:** pull request con la CI en verde y la revisión de otra pareja. |
+| Tarde | ~3 h | **Desarrollo e integración:** pull request con «Pruebas + reporte de aceptación» en VS Code en verde y la revisión de otra pareja. |
 | Cierre | 30 min | **Aceptación:** el Tester ejecuta `xp aceptacion` y el Cliente marca `TERMINADA`. **Retrospectiva:** se ajustan la guía y el estándar si hace falta. |
 
 Una historia que no se termina en su día vuelve al plan del día siguiente; nunca se alarga la iteración.
@@ -112,7 +112,7 @@ Una historia que no se termina en su día vuelve al plan del día siguiente; nun
 Una historia solo pasa a `TERMINADA` cuando:
 
 - [ ] Cada criterio de aceptación tiene al menos una prueba con `@Historia` de la historia.
-- [ ] `antdron.cmd probar` pasa en local y en la CI.
+- [ ] «Pruebas + reporte de aceptación» en VS Code pasa después de actualizar con la rama principal.
 - [ ] Se programó en pareja y otra pareja revisó el pull request.
 - [ ] Cumple el [estándar de código](estandar-codigo.md).
 - [ ] Su tarjeta CRC y el diagrama afectado están actualizados.
@@ -123,7 +123,7 @@ El núcleo (`ec.edu.epn.xp`) no conoce a los demás módulos. Cada módulo agreg
 
 1. Implementar `ec.edu.epn.xp.ComandoXP` (`nombre()`, `descripcion()`, `ejecutar(argumentos, contexto)`).
 2. Agregar el nombre completo de la clase, uno por línea, en
-   `framework-xp/recursos/META-INF/services/ec.edu.epn.xp.ComandoXP`.
+   `framework-xp/src/META-INF/services/ec.edu.epn.xp.ComandoXP`.
 3. Leer rutas con `contexto.ruta("clave", "valor/por/defecto")` o `contexto.artefacto(Practica.X)`, nunca con rutas fijas.
 4. Lanzar `IllegalArgumentException` con un mensaje claro ante datos inválidos; la CLI lo muestra sin stack trace.
 
@@ -131,16 +131,11 @@ Comandos del núcleo: `ayuda`, `directrices [fase]` y `verificar [fase]`.
 
 ## 9. Uso
 
-Desde la raíz del repositorio (en Linux/macOS, `./antdron.sh` en lugar de `antdron.cmd`):
+Abra la carpeta raíz del repositorio en VS Code y use **Ejecutar y depurar** (Ctrl+Shift+D):
 
-```bash
-antdron.cmd xp ayuda                 # todos los comandos del framework
-antdron.cmd xp directrices diseno    # reglas de una fase
-antdron.cmd xp verificar             # qué artefacto falta y de quién es
-antdron.cmd xp backlog               # historias de usuario
-antdron.cmd xp plan                  # plan de entregas por iteración
-antdron.cmd xp velocidad             # velocidad del proyecto
-antdron.cmd xp parejas 2             # parejas del bloque 2
-antdron.cmd xp crc                   # clases sin tarjeta CRC
-antdron.cmd probar                   # pruebas + reporte de aceptación
-```
+| Configuración | Qué hace |
+|---|---|
+| «Framework XP (comando)» | Pide el comando y lo ejecuta: `ayuda`, `directrices diseno`, `verificar`, `backlog`, `plan`, `plan --proponer 5`, `velocidad`, `equipo`, `parejas 2`, `crc`, `aceptacion`. |
+| «Pruebas + reporte de aceptación» | `xp probar`: todas las pruebas y `xp/pruebas-aceptacion.md`. |
+
+Con Docker: `docker compose run --rm antdron verificar` (o cualquier otro comando).

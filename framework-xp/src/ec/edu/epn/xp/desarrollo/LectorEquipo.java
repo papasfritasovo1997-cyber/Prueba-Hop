@@ -1,7 +1,10 @@
 package ec.edu.epn.xp.desarrollo;
 
 import java.io.IOException;
-import java.io.Reader;
+import java.io.StringReader;
+import java.nio.ByteBuffer;
+import java.nio.charset.CharacterCodingException;
+import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -29,7 +32,7 @@ public final class LectorEquipo {
                     + " (" + ARCHIVO_EQUIPO + " y " + ARCHIVO_INTEGRANTES + ")");
         }
         Properties p = new Properties();
-        try (Reader r = Files.newBufferedReader(propiedades, StandardCharsets.UTF_8)) {
+        try (StringReader r = new StringReader(leerTexto(propiedades))) {
             p.load(r);
         }
         int grupo;
@@ -39,7 +42,7 @@ public final class LectorEquipo {
             throw new IllegalArgumentException(ARCHIVO_EQUIPO + ": 'grupo' debe ser un número", e);
         }
         return new Equipo(grupo, p.getProperty("nombre"), p.getProperty("metafora"),
-                parsearIntegrantes(Files.readAllLines(csv, StandardCharsets.UTF_8)));
+                parsearIntegrantes(leerTexto(csv).lines().toList()));
     }
 
     public List<Integrante> parsearIntegrantes(List<String> lineas) {
@@ -62,5 +65,20 @@ public final class LectorEquipo {
             }
         }
         return integrantes;
+    }
+
+    /**
+     * Lee un archivo editado a mano en Windows: acepta UTF-8 (con o sin BOM) y, si no lo es,
+     * ANSI/windows-1252, que es como Excel guarda «CSV (delimitado por comas)».
+     */
+    static String leerTexto(Path archivo) throws IOException {
+        byte[] bytes = Files.readAllBytes(archivo);
+        String texto;
+        try {
+            texto = StandardCharsets.UTF_8.newDecoder().decode(ByteBuffer.wrap(bytes)).toString();
+        } catch (CharacterCodingException e) {
+            texto = new String(bytes, Charset.forName("windows-1252"));
+        }
+        return texto.startsWith("\uFEFF") ? texto.substring(1) : texto;
     }
 }

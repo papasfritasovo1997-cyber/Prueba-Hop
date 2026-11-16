@@ -6,7 +6,7 @@ Un **spike** es una investigación corta para reducir un riesgo técnico antes d
 
 | Spike | Historia | Pregunta | Decisión |
 |---|---|---|---|
-| 1 | HU-13, XP-05 | ¿Se puede usar JavaFX sin Maven? | Sí: `herramientas/Construir.java` descarga el SDK y compila. |
+| 1 | HU-13, XP-05 | ¿Se puede usar JavaFX sin Maven? | Sí: VS Code compila con los `.jar` de JavaFX para Windows en `lib/`. |
 | 2 | HU-13 | ¿Se puede ver una interfaz gráfica dentro de Docker? | Sí: Xvfb + x11vnc + noVNC en el puerto 6080. |
 | 3 | HU-12 | ¿SQLite o CSV para el hormiguero? | CSV, con el mismo modelo ER. |
 | 4 | XP-05 | ¿JUnit o un ejecutor de pruebas propio? | Ejecutor propio con `@Prueba` y `@Historia`. |
@@ -17,17 +17,16 @@ Un **spike** es una investigación corta para reducir un riesgo técnico antes d
 ## Spike 1 · JavaFX sin Maven
 
 - **Historias:** HU-13 (aplicación dockerizada) y XP-05 (pruebas). **Tiempo máximo:** 1 hora.
-- **Pregunta:** el proyecto no usa Maven. ¿Cómo se compila y ejecuta una aplicación JavaFX con solo un JDK?
+- **Pregunta:** el proyecto no usa Maven y se trabaja en Windows con VS Code. ¿Cómo se compila y ejecuta una aplicación JavaFX con solo un JDK?
 - **Intentos:**
-  - JavaFX ya no viene con el JDK; hay que descargar el SDK de JavaFX (21.0.5) y pasar `--module-path` y `--add-modules javafx.controls`.
-  - Un script `.cmd` o `.sh` que haga todo es difícil de mantener en dos sistemas operativos.
-- **Solución:** un único archivo Java, `herramientas/Construir.java`, que se ejecuta directamente con `java herramientas/Construir.java <comando>` (Java 17 o superior). El programa:
-  1. descarga el SDK de JavaFX una sola vez en `.javafx/` (o usa `JAVAFX_HOME` si ya existe uno);
-  2. compila el framework, la aplicación y las pruebas con el compilador del propio JDK (`javax.tools`), solo lo que cambió;
-  3. ejecuta las pruebas y lanza la aplicación con el módulo `javafx.controls`.
-- **Lanzadores:** `antdron.cmd` (Windows) y `antdron.sh` (Linux/macOS) solo comprueban que hay `java` y llaman a `Construir.java`.
-- **Decisión:** se usa `Construir.java`. Comandos: `ejecutar`, `consola`, `probar`, `xp ...`, `compilar`, `limpiar`.
-- **Consecuencias:** no se instala nada más que el JDK; la primera ejecución necesita internet. La aplicación se compila **sin** el framework en el classpath, lo que comprueba su independencia.
+  - Instalar el SDK de JavaFX en cada computadora y pasar `--module-path`: cada integrante tendría una ruta distinta.
+  - Una herramienta de construcción propia que descargue JavaFX: funciona, pero es código extra que el enunciado no pide.
+- **Solución:** proyecto Java de VS Code sin herramienta de construcción (`.vscode/settings.json`):
+  1. las cuatro carpetas de fuentes (`framework-xp/src`, `framework-xp/pruebas`, `antdron/src`, `antdron/pruebas`) se compilan juntas en `bin/`;
+  2. `lib/` trae `javafx-base`, `javafx-graphics` y `javafx-controls` 21.0.5 para Windows (las DLL vienen dentro de los `.jar`);
+  3. `ec.edu.epn.antdron.App` no hereda de `Application`, así JavaFX arranca desde el classpath sin `--module-path` (Java solo muestra el aviso «Unsupported JavaFX configuration», que no afecta).
+- **Decisión:** `.vscode/launch.json` trae las configuraciones «AntCiberDron (JavaFX)», «AntCiberDron (consola)», «AntCiberDron (autómata de cédulas)», «Pruebas + reporte de aceptación» y «Framework XP (comando)».
+- **Consecuencias:** solo se instala un JDK 17+ y VS Code con el Extension Pack for Java; no hace falta internet. Como todo se compila junto, `IndependenciaTest` comprueba que `antdron/src` no importe el framework, y Docker compila además la aplicación sola.
 
 ## Spike 2 · Interfaz gráfica en Docker con Xvfb y noVNC
 
@@ -41,7 +40,7 @@ Un **spike** es una investigación corta para reducir un riesgo técnico antes d
   2. arranca **x11vnc** sobre esa pantalla;
   3. arranca **websockify/noVNC** en el puerto **6080**;
   4. ejecuta la aplicación y la vuelve a abrir si la ventana se cierra.
-- **Detalle técnico:** sin tarjeta gráfica se usa el renderizado por software de JavaFX (`ANTDRON_PRISM=sw`).
+- **Detalle técnico:** sin tarjeta gráfica se usa el renderizado por software de JavaFX (`-Dprism.order=sw`). La imagen descarga los `.jar` de JavaFX para Linux, porque los de `lib/` son para Windows.
 - **Decisión:** `docker compose up --build` y abrir `http://localhost:6080/vnc.html`. La consola funciona con `docker compose run --rm consola` y las pruebas con `docker compose run --rm antdron probar`.
 - **Consecuencias:** `config/` y `datos/` se montan como volúmenes, así que el equipo edita las cédulas en su máquina y pulsa «Recargar configuración» dentro de la ventana. La imagen ejecuta las pruebas al construirse.
 
@@ -76,8 +75,8 @@ Un **spike** es una investigación corta para reducir un riesgo técnico antes d
   - anotaciones `@Prueba`, `@Historia("HU-nn")`, `@AntesDeCada` y `@DespuesDeCada`;
   - `Afirmar` (`igual`, `verdadero`, `falso`, `lanza`, `contiene`, ...);
   - `EjecutorPruebas`, que busca las clases de prueba, las ejecuta y guarda `build/pruebas/resultados.csv`;
-  - `ReporteAceptacion`, que cruza ese resultado con el backlog y marca cada historia como **ACEPTADA**, **RECHAZADA** o **SIN_PRUEBAS** (`antdron.cmd xp aceptacion`).
-- **Decisión:** ejecutor propio (el framework lo pide de todas formas: «Pruebas de aceptación» es una directriz XP). `antdron.cmd probar` lo ejecuta para el framework y para la aplicación.
+  - `ReporteAceptacion`, que cruza ese resultado con el backlog y marca cada historia como **ACEPTADA**, **RECHAZADA** o **SIN_PRUEBAS** (`xp aceptacion`).
+- **Decisión:** ejecutor propio (el framework lo pide de todas formas: «Pruebas de aceptación» es una directriz XP). «Pruebas + reporte de aceptación» en VS Code lo ejecuta para el framework y para la aplicación.
 - **Consecuencias:** hay menos funciones que en JUnit (no hay pruebas parametrizadas ni ejecución paralela), pero son suficientes y el reporte por historia es nativo.
 
 ## Spike 5 · AFD mínimo con subconjuntos y Moore

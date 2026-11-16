@@ -13,7 +13,7 @@
 | Clases | Una responsabilidad por clase. Campos `private` y `final` cuando sea posible. Las clases de valor son inmutables. |
 | Errores | Validar la entrada y lanzar `IllegalArgumentException` o `IllegalStateException` con un mensaje claro en español. Ningún programa termina mostrando un stack trace al usuario. |
 | Comentarios | Javadoc breve en clases e interfaces públicas. Comentar solo el **porqué** de lo que no es obvio. |
-| Dependencias | La aplicación **no** depende del framework. Sin Maven ni bibliotecas externas: solo el JDK y JavaFX, que descarga `herramientas/Construir.java` (funcionalidad mínima). |
+| Dependencias | La aplicación **no** depende del framework. Sin Maven ni bibliotecas externas: solo el JDK y los `.jar` de JavaFX de `lib/` (funcionalidad mínima). |
 | Pantallas | Las vistas JavaFX viven en `ec.edu.epn.antdron.ui` y solo muestran datos: las reglas del dominio están en sus paquetes y se prueban sin abrir ventanas. Toda acción del usuario captura los errores y los muestra en pantalla. |
 | Seguridad | Las claves de los usuarios KGD se guardan con sal y hash. En `config/integrantes.csv` se recomienda `sha256:<hash>` en lugar de la clave en texto; nunca se suben contraseñas reales. |
 
@@ -28,5 +28,5 @@
 
 - Una rama por historia: `hu-06-automata`, `xp-03-plan-entregas`.
 - Commits pequeños, en presente y en español: `Agrega minimización del AFD`.
-- Se integra por pull request con la CI en verde y la revisión de otra pareja; nadie sube directo a la rama principal.
+- Se integra por pull request con «Pruebas + reporte de aceptación» en VS Code en verde y la revisión de otra pareja; nadie sube directo a la rama principal.
 - Cada integrante sube únicamente los archivos de su sección.

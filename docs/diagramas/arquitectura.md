@@ -2,7 +2,7 @@
 
 **Responsable:** Integrante 5 (Consultor) · **Historias:** XP-04 (diseño) y HU-13 (aplicación dockerizada).
 
-El proyecto son **dos partes independientes** más una herramienta de construcción y una imagen Docker. No se usa Maven: `herramientas/Construir.java` es un programa Java de un solo archivo que descarga el SDK de JavaFX 21.0.5 (una sola vez, en `.javafx/`), compila, ejecuta las pruebas y lanza la aplicación.
+El proyecto son **dos partes independientes** que se abren juntas en **VS Code** (Windows) y una imagen Docker. No se usa Maven ni herramienta de construcción: VS Code compila las cuatro carpetas de fuentes en `bin/` con los `.jar` de JavaFX 21.0.5 para Windows que trae `lib/`, y Docker compila lo mismo con `javac` y JavaFX para Linux.
 
 ## Vista general
 
@@ -22,9 +22,9 @@ flowchart TB
         Ini --> Xvfb
     end
 
-    subgraph herr["Herramienta de construcción"]
-        Construir["herramientas/Construir.java<br/>antdron.cmd / antdron.sh"]
-        Sdk[(".javafx/ SDK JavaFX 21.0.5")]
+    subgraph herr["VS Code en Windows"]
+        Construir[".vscode/settings.json y launch.json<br/>compila en bin/"]
+        Sdk[("lib/ JavaFX 21.0.5 para Windows")]
         Construir --> Sdk
     end
 
@@ -58,7 +58,6 @@ flowchart TB
         Xp["xp/historias.csv, metafora, CRC,<br/>plan, reuniones, spikes"]
     end
 
-    CI["GitHub Actions<br/>compila, prueba, construye la imagen"]
 
     Profesor --> UI
     Profesor --> Consola
@@ -67,18 +66,15 @@ flowchart TB
     Vnc --> UI
     Kgd --> UI
     Equipo --> Cli
-    Cli --> Construir
-    Construir -->|compila y lanza| app
-    Construir -->|compila y prueba| fw
+    Construir -->|compila y ejecuta| app
+    Construir -->|compila y ejecuta xp probar| fw
     Runner -.->|prueba| app
     Cfg -->|lee| Motor
     Motor -->|regenera| Gen
     Pers --> Hormi
     Cli -->|lee y verifica| Xp
     Cli -->|lee| Cfg
-    Ini --> Construir
-    CI --> Construir
-    CI --> docker
+    Ini -->|javac + JavaFX Linux| app
 ```
 
 ## Independencia entre las dos partes
@@ -120,21 +116,21 @@ La aplicación se compila **sin** el framework (`javac` solo con JavaFX). Solo l
 | Decisión | Motivo | Consecuencia |
 |---|---|---|
 | JavaFX **sin FXML** | Las pantallas son código Java (`Ui` y los paneles). Menos archivos y nada que cargar en tiempo de ejecución. | Las vistas se prueban igual que cualquier clase; no hay editor visual. |
-| **Sin Maven** | Se pidió una construcción simple, sin instalar herramientas. | `herramientas/Construir.java` hace todo con solo un JDK 17+; ver `xp/spikes.md`. |
+| **Sin Maven ni herramienta de construcción** | Se trabaja en Windows con VS Code; nada que instalar aparte del JDK y la extensión de Java. | `.vscode/settings.json` define las carpetas de fuentes y `lib/` trae JavaFX; ver `xp/spikes.md`. |
 | Persistencia **CSV** en lugar de base de datos | Sin Maven no hay controladores JDBC; los CSV se editan y se montan en Docker. | `TablaCsv` es simple; no hay transacciones ni concurrencia entre procesos. |
 | **Ejecutor de pruebas propio** | Sin Maven no hay JUnit; además permite el reporte de aceptación por historia con `@Historia`. | Solo existen las funciones necesarias de `Afirmar` y de las anotaciones `@Prueba`, `@AntesDeCada` y `@DespuesDeCada`. |
-| **Independencia verificada** | La aplicación sigue las directrices XP pero no importa el framework. | `Construir.java` compila la aplicación sin el framework; si algo lo importara, la compilación falla. |
+| **Independencia verificada** | La aplicación sigue las directrices XP pero no importa el framework. | `IndependenciaTest` falla si `antdron/src` importa el framework, y Docker compila la aplicación sola. |
 | **Configuración por archivo** | El equipo solo escribe cédulas en `config/integrantes.csv`. | Al recargar, el motor regenera coordenadas, bomba y autómata sin tocar código. |
 | **Docker con Xvfb + noVNC** | Probar la interfaz sin instalar Java ni tener pantalla. | `docker compose up --build` y abrir `http://localhost:6080/vnc.html`; `config/` y `datos/` se montan como volúmenes. |
-| **Integración continua** | Cada push compila, prueba y construye la imagen. | GitHub Actions ejecuta `java herramientas/Construir.java probar` y construye la imagen Docker. |
+| **Integración continua local** | Cada pareja integra varias veces al día sin depender de servicios externos. | «Pruebas + reporte de aceptación» en VS Code antes de subir; `docker compose build` vuelve a ejecutar todas las pruebas. |
 
 ## Cómo se ejecuta
 
-| Qué | Comando |
+| Qué | Cómo |
 |---|---|
-| Aplicación JavaFX | `antdron.cmd` o `antdron.cmd ejecutar` (Linux/macOS: `./antdron.sh`) |
-| Consola | `antdron.cmd consola` |
-| Pruebas y reporte de aceptación | `antdron.cmd probar` |
-| Framework XP | `antdron.cmd xp ayuda` |
+| Aplicación JavaFX | VS Code: «AntCiberDron (JavaFX)» y F5 |
+| Consola | VS Code: «AntCiberDron (consola)» |
+| Pruebas y reporte de aceptación | «Pruebas + reporte de aceptación» en VS Code |
+| Framework XP | VS Code: «Framework XP (comando)» → `ayuda`, `verificar`, ... |
 | Docker (interfaz en el navegador) | `docker compose up --build` y abrir `http://localhost:6080/vnc.html` |
 | Docker (consola) | `docker compose run --rm consola` |

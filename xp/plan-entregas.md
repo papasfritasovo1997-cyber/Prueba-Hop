@@ -5,9 +5,9 @@
 El proyecto dura **dos días** y cada día es una iteración: **Día 1 = Iteración 1**, **Día 2 = Iteración 2**. Las historias, sus puntos, prioridades y responsables salen de `xp/historias.csv`; este documento solo las organiza. Para ver siempre los datos actualizados:
 
 ```text
-antdron.cmd xp backlog
-antdron.cmd xp plan
-antdron.cmd xp velocidad
+xp ...klog
+xp ...n
+xp ...ocidad
 ```
 
 ## Estimación y velocidad
@@ -15,7 +15,7 @@ antdron.cmd xp velocidad
 - **1 punto ≈ 1 hora ideal de trabajo en pareja.** «Ideal» significa sin interrupciones; los imprevistos se ven en la velocidad real.
 - **Velocidad** = puntos de las historias terminadas en una iteración. La velocidad del Día 1 («clima de ayer») es la que se usa para planificar el Día 2.
 - Las historias solo cuentan como terminadas cuando su estado en `xp/historias.csv` es `TERMINADA` (criterios cumplidos y pruebas pasando; ver `xp/pruebas-aceptacion.md`).
-- Si al cierre del Día 1 la velocidad es menor que lo planeado, `antdron.cmd xp plan --proponer N` (N = velocidad real) reparte de nuevo las historias pendientes por prioridad, sin pasarse de N puntos por día.
+- Si al cierre del Día 1 la velocidad es menor que lo planeado, `xp plan --proponer N` (N = velocidad real) reparte de nuevo las historias pendientes por prioridad, sin pasarse de N puntos por día.
 
 ## Resumen por iteración
 
@@ -85,7 +85,7 @@ Cada historia del Día 2 necesita algo del Día 1 o de otra historia del mismo d
 | 7 | HU-11 Pantallas del hormiguero virtual | HU-12, HU-05 | La pantalla usa la persistencia y las reglas de alimentación. |
 | 8 | HU-02 Presentar equipo | HU-15 | Muestra el equipo ya cargado desde el archivo. |
 
-Mañana del Día 2: historias 1 a 4. Tarde: historias 5 a 8, la revisión final con `antdron.cmd probar` y `antdron.cmd xp verificar`. Las parejas de cada bloque están en `xp/reuniones.md`.
+Mañana del Día 2: historias 1 a 4. Tarde: historias 5 a 8, la revisión final con «Pruebas + reporte de aceptación» en VS Code y `xp verificar`. Las parejas de cada bloque están en `xp/reuniones.md`.
 
 ## Riesgos
 

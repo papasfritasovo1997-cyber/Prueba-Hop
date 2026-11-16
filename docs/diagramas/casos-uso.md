@@ -10,7 +10,7 @@
 | **Profesor (patmic)** | Usuario `patmic` / clave `123` | Ingresa por consola, JavaFX o Docker para revisar el equipo, las coordenadas, la bomba y el autómata. |
 | **Usuario KGD** | Jugador del hormiguero virtual (se registra solo) | Se registra, ingresa, crea `HLarva` y las alimenta. |
 | **Experto parlante** | Persona que domina un idioma (`ExpertoParlante`) | Entrena léxico, gramática y fonética del AntCiberDron; solo puede entrenar su idioma nativo. |
-| **Equipo XP** | Los seis integrantes en sus roles XP | Usa el framework desde la línea de comandos (`antdron.cmd xp ...`). |
+| **Equipo XP** | Los seis integrantes en sus roles XP | Usa el framework desde VS Code («Framework XP (comando)»: `xp ...`). |
 
 ## 1. Aplicación AntCiberDron y framework XP (Mermaid)
 

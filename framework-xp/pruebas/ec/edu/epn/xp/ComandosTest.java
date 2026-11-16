@@ -62,7 +62,7 @@ class ComandosTest {
     @Prueba
     void losModulosSeRegistranConServiceLoader() {
         Afirmar.igual(java.util.List.of("aceptacion", "backlog", "crc", "directrices", "equipo", "parejas", "plan",
-                "velocidad", "verificar"), new XpCli().nombresDeComandos());
+                "probar", "velocidad", "verificar"), new XpCli().nombresDeComandos());
     }
 
     @Prueba

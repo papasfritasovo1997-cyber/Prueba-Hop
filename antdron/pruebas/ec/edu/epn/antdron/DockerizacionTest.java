@@ -8,7 +8,7 @@ import ec.edu.epn.xp.pruebas.Afirmar;
 import ec.edu.epn.xp.pruebas.Historia;
 import ec.edu.epn.xp.pruebas.Prueba;
 
-/** Los archivos de Docker siguen alineados con la herramienta de construcción y los modos de la aplicación. */
+/** Docker compila igual que VS Code y conserva los modos de la aplicación. */
 @Historia("HU-13")
 class DockerizacionTest {
 
@@ -24,13 +24,26 @@ class DockerizacionTest {
     @Prueba
     void laImagenEjecutaLasPruebasYMuestraLaGuiEnElNavegador() throws IOException {
         String dockerfile = Files.readString(raiz().resolve("Dockerfile"));
-        Afirmar.contiene(dockerfile, "java herramientas/Construir.java probar");
+        Afirmar.contiene(dockerfile, "javac -encoding UTF-8");
+        Afirmar.contiene(dockerfile, "ec.edu.epn.xp.XpCli probar");
+        Afirmar.contiene(dockerfile, "javafx-graphics-${JAVAFX}-linux.jar");
         Afirmar.contiene(dockerfile, "EXPOSE 6080");
         Afirmar.contiene(dockerfile, "novnc");
         String inicio = Files.readString(raiz().resolve("docker/iniciar.sh"));
         Afirmar.contiene(inicio, "Xvfb");
-        Afirmar.contiene(inicio, "Construir.java ejecutar");
-        Afirmar.contiene(inicio, "Construir.java consola");
+        Afirmar.contiene(inicio, "ec.edu.epn.antdron.App consola");
+        Afirmar.contiene(inicio, "-Dprism.order=sw -cp \"$CP\" ec.edu.epn.antdron.App");
+    }
+
+    @Prueba
+    void vsCodeCompilaLasMismasCarpetasQueDocker() throws IOException {
+        String ajustes = Files.readString(raiz().resolve(".vscode/settings.json"));
+        String dockerfile = Files.readString(raiz().resolve("Dockerfile"));
+        for (String carpeta : new String[] {"framework-xp/src", "framework-xp/pruebas", "antdron/src", "antdron/pruebas"}) {
+            Afirmar.contiene(ajustes, "\"" + carpeta + "\"");
+            Afirmar.contiene(dockerfile, carpeta);
+        }
+        Afirmar.contiene(ajustes, "lib/**/*.jar");
     }
 
     @Prueba

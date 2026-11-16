@@ -2,8 +2,9 @@
 # Punto de entrada del contenedor.
 #   gui      (por defecto) pantalla virtual + noVNC: abra http://localhost:6080/vnc.html
 #   consola  versión de consola (requiere docker compose run con -it)
-#   otro     se pasa a la herramienta de construcción (probar, xp ..., etc.)
+#   otro     comando del framework XP (probar, verificar, backlog, ...)
 cd /opt/antdron || exit 2
+CP="bin:/opt/javafx/*"
 modo=${1:-gui}
 
 case "$modo" in
@@ -15,15 +16,15 @@ case "$modo" in
     echo "AntCiberDron listo: abra http://localhost:6080/vnc.html?autoconnect=true&resize=scale"
     # Si la ventana se cierra, se vuelve a abrir (el contenedor sigue disponible en el navegador).
     while true; do
-      java herramientas/Construir.java ejecutar
+      java -Dprism.order=sw -cp "$CP" ec.edu.epn.antdron.App
       echo "La aplicación se cerró; se abre de nuevo en 2 s..."
       sleep 2
     done
     ;;
   consola)
-    exec java herramientas/Construir.java consola
+    exec java -cp "$CP" ec.edu.epn.antdron.App consola
     ;;
   *)
-    exec java herramientas/Construir.java "$@"
+    exec java -Djava.awt.headless=true -cp "$CP" ec.edu.epn.xp.XpCli "$@"
     ;;
 esac

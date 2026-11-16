@@ -1,0 +1,75 @@
+{
+    // Ejecutar y depurar (Ctrl+Shift+D): elija una configuración y pulse F5.
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "AntCiberDron (JavaFX)",
+            "request": "launch",
+            "mainClass": "ec.edu.epn.antdron.App",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "shortenCommandLine": "argfile"
+        },
+        {
+            "type": "java",
+            "name": "AntCiberDron (consola)",
+            "request": "launch",
+            "mainClass": "ec.edu.epn.antdron.App",
+            "args": "consola",
+            "cwd": "${workspaceFolder}",
+            "console": "integratedTerminal",
+            "shortenCommandLine": "argfile"
+        },
+        {
+            "type": "java",
+            "name": "AntCiberDron (autómata de cédulas)",
+            "request": "launch",
+            "mainClass": "ec.edu.epn.antdron.App",
+            "args": "automata ${input:cedulas}",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "encoding": "UTF-8",
+            "vmArgs": "-Dstdout.encoding=UTF-8 -Dstderr.encoding=UTF-8 -Dsun.stdout.encoding=UTF-8 -Dsun.stderr.encoding=UTF-8",
+            "shortenCommandLine": "argfile"
+        },
+        {
+            "type": "java",
+            "name": "Pruebas + reporte de aceptación",
+            "request": "launch",
+            "mainClass": "ec.edu.epn.xp.XpCli",
+            "args": "probar",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "encoding": "UTF-8",
+            "vmArgs": "-Djava.awt.headless=true -Dstdout.encoding=UTF-8 -Dstderr.encoding=UTF-8 -Dsun.stdout.encoding=UTF-8 -Dsun.stderr.encoding=UTF-8",
+            "shortenCommandLine": "argfile"
+        },
+        {
+            "type": "java",
+            "name": "Framework XP (comando)",
+            "request": "launch",
+            "mainClass": "ec.edu.epn.xp.XpCli",
+            "args": "${input:comandoXp}",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "encoding": "UTF-8",
+            "vmArgs": "-Dstdout.encoding=UTF-8 -Dstderr.encoding=UTF-8 -Dsun.stdout.encoding=UTF-8 -Dsun.stderr.encoding=UTF-8",
+            "shortenCommandLine": "argfile"
+        }
+    ],
+    "inputs": [
+        {
+            "id": "cedulas",
+            "type": "promptString",
+            "description": "Cédulas separadas por espacios",
+            "default": "1103635 1503639"
+        },
+        {
+            "id": "comandoXp",
+            "type": "promptString",
+            "description": "Comando del framework XP (ayuda, directrices, verificar, backlog, plan, plan --proponer 5, velocidad, equipo, parejas 2, crc, aceptacion)",
+            "default": "verificar"
+        }
+    ]
+}

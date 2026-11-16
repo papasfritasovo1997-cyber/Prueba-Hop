@@ -16,7 +16,7 @@ import ec.edu.epn.xp.ContextoXP;
 /**
  * {@code xp verificar [fase]}: comprueba que exista el artefacto de cada práctica.
  * Un archivo cuenta si no está vacío y un directorio si contiene al menos un archivo.
- * Termina con 1 si falta alguno, para poder usarlo en la integración continua.
+ * Termina con 1 si falta alguno, para poder usarlo como control antes de integrar.
  */
 public final class ComandoVerificar implements ComandoXP {
 

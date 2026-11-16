@@ -47,6 +47,20 @@ class LectorConfiguracionTest {
     }
 
     @Prueba
+    void aceptaArchivosGuardadosEnWindows() throws IOException {
+        // equipo.properties con BOM (Bloc de notas "UTF-8 con BOM") e integrantes.csv en ANSI (Excel, CRLF).
+        Files.writeString(dir.resolve("equipo.properties"), "\uFEFFgrupo=4\r\nnombre=Hormigas Rápidas\r\n");
+        Files.write(dir.resolve("integrantes.csv"),
+                "cedula;nombre;usuario;clave;rol\r\n1754265385;Begoña Núñez;bego;1;CLIENTE\r\n"
+                        .getBytes(java.nio.charset.Charset.forName("windows-1252")));
+        Equipo e = lector.leer(dir);
+        Afirmar.igual(4, e.grupo());
+        Afirmar.igual("Hormigas Rápidas", e.nombre());
+        Afirmar.igual("Begoña Núñez", e.integrantes().get(0).nombre());
+        Afirmar.igual(List.of("1754265385"), e.cedulas());
+    }
+
+    @Prueba
     void erroresIndicanArchivoYLinea() throws IOException {
         escribir("grupo=1\n", ";Ana;ana;1;CLIENTE", "17A4;Luis;luis;1;GESTOR");
         Afirmar.contiene(Afirmar.lanza(IllegalArgumentException.class, () -> lector.leer(dir)).getMessage(),

@@ -66,9 +66,8 @@ public final class XpCli {
 
     public static void main(String[] args) {
         int codigo = new XpCli().ejecutar(args, System.out, System.err);
-        if (codigo != 0) {
-            System.exit(codigo);
-        }
+        // Siempre se sale explícitamente: "probar" puede dejar hilos vivos de las pruebas.
+        System.exit(codigo);
     }
 
     /** @return 0 éxito, 1 uso incorrecto o verificación fallida, 2 error al ejecutar. */

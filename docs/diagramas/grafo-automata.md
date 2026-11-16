@@ -143,7 +143,7 @@ Las cédulas de los integrantes **no se escriben en este documento**: se escribe
 | Paso | Qué ocurre |
 |---|---|
 | 1 | Cada integrante escribe su cédula en `config/integrantes.csv` (columna `cedula`). Pueden faltar algunas: la aplicación avisa y trabaja con las que haya. |
-| 2 | Se pulsa **«Recargar configuración»** en la aplicación (o se ejecuta `antdron.cmd consola` / `antdron.cmd ejecutar` de nuevo; en Docker, el botón de la ventana). |
+| 2 | Se pulsa **«Recargar configuración»** en la aplicación (o se vuelve a ejecutar desde VS Code; en Docker, el botón de la ventana). |
 | 3 | `MotorAntdron` toma el último dígito de cada cédula, obtiene las coordenadas objetivo y el lenguaje de cada una, construye el AFD mínimo de la unión y crea la bomba. |
 | 4 | Se regenera **`datos/automata-grupo##.md`** (## = número de grupo con dos dígitos, por ejemplo `datos/automata-grupo01.md`) con la tabla de integrantes, el lenguaje L, la definición formal, la gramática, el grafo Mermaid y el DOT de Graphviz. También se regenera `datos/Grupo##.csv`. |
 | 5 | La pestaña **«Bomba y autómata»** muestra lo mismo: lenguaje, coordenadas objetivo, definición formal, gramática, el grafo dibujado y una prueba de palabras (`¿w ∈ L?`). |
@@ -153,7 +153,7 @@ Ejemplo de `config/integrantes.csv` (se usan las cédulas del enunciado solo com
 ```text
 cedula;nombre;usuario;clave;rol
 1103635;Integrante 1;integrante1;1234;ENTRENADOR
-1503639;Integrante 2;integrante2;clave2;CLIENTE
+1503639;Integrante 2;integrante2;1234;CLIENTE
 ```
 
 Con esas dos cédulas, `datos/automata-grupo##.md` contiene el autómata del ejemplo de la sección 3 (L = { abcdt+ , ab* }).
@@ -162,19 +162,14 @@ Si el último dígito de una cédula nueva ya está incluido, el lenguaje no cam
 
 ### Imprimir el autómata de cualquier cédula
 
-Sin tocar `config/`, se puede imprimir el autómata de cualquier lista de cédulas (definición formal, gramática, DOT y Mermaid). Primero se compila con `antdron.cmd compilar` y luego:
+Sin tocar `config/`, se puede imprimir el autómata de cualquier lista de cédulas (definición formal, gramática, DOT y Mermaid): en VS Code, **Ejecutar y depurar** (Ctrl+Shift+D) → «AntCiberDron (autómata de cédulas)» → F5, y escriba las cédulas separadas por espacios (por defecto `1103635 1503639`).
 
-```bash
-java --module-path .javafx/javafx-sdk-21.0.5/lib --add-modules javafx.controls -cp build/antdron/clases ec.edu.epn.antdron.App automata 1103635 1503639
-```
-
-En Linux/macOS la ruta de `-cp` y `--module-path` es la misma. Para ver el grafo como imagen, pegue el DOT en <https://dreampuf.github.io/GraphvizOnline> o el bloque Mermaid en <https://mermaid.live>.
+Para ver el grafo como imagen, pegue el DOT en <https://dreampuf.github.io/GraphvizOnline> o el bloque Mermaid en <https://mermaid.live>.
 
 ### Otros comandos relacionados
 
-| Comando | Qué hace |
+| Configuración de VS Code | Qué hace |
 |---|---|
-| `antdron.cmd ejecutar` | Abre la aplicación JavaFX (regenera `datos/` al arrancar). |
-| `antdron.cmd consola` | Versión de consola: login, equipo, coordenadas con loading y bomba. |
-| `antdron.cmd probar` | Compila y ejecuta todas las pruebas, incluida `AutomataTest`. |
-| `antdron.cmd compilar` | Solo compila (necesario antes del comando `java ... App automata`). |
+| «AntCiberDron (JavaFX)» | Abre la aplicación JavaFX (regenera `datos/` al arrancar). |
+| «AntCiberDron (consola)» | Versión de consola: login, equipo, coordenadas con loading y bomba. |
+| «Pruebas + reporte de aceptación» | Ejecuta todas las pruebas, incluida `AutomataTest`. |
