@@ -1,0 +1,140 @@
+# Arquitectura
+
+**Responsable:** Integrante 5 (Consultor) · **Historias:** XP-04 (diseño) y HU-13 (aplicación dockerizada).
+
+El proyecto son **dos partes independientes** más una herramienta de construcción y una imagen Docker. No se usa Maven: `herramientas/Construir.java` es un programa Java de un solo archivo que descarga el SDK de JavaFX 21.0.5 (una sola vez, en `.javafx/`), compila, ejecuta las pruebas y lanza la aplicación.
+
+## Vista general
+
+```mermaid
+flowchart TB
+    Profesor(["Profesor / integrantes"])
+    Kgd(["Usuarios KGD"])
+    Equipo(["Equipo XP"])
+    Navegador["Navegador<br/>http://localhost:6080/vnc.html"]
+
+    subgraph docker["Docker - imagen eclipse-temurin 21 JDK"]
+        direction TB
+        Xvfb["Xvfb pantalla virtual :99"]
+        Vnc["x11vnc + noVNC puerto 6080"]
+        Ini["docker/iniciar.sh"]
+        Xvfb --> Vnc
+        Ini --> Xvfb
+    end
+
+    subgraph herr["Herramienta de construcción"]
+        Construir["herramientas/Construir.java<br/>antdron.cmd / antdron.sh"]
+        Sdk[(".javafx/ SDK JavaFX 21.0.5")]
+        Construir --> Sdk
+    end
+
+    subgraph app["Parte 2 - antdron/ AntCiberDron"]
+        direction TB
+        UI["ui - JavaFX sin FXML"]
+        Consola["App - modo consola"]
+        Motor["MotorAntdron"]
+        Dominio["Dominio: hormiga, alimento, antciberdron, bomba, automata, sistema"]
+        Auth["auth + config"]
+        Pers["persistencia - TablaCsv, HormigueroServicio"]
+        UI --> Motor
+        Consola --> Motor
+        Motor --> Dominio
+        Motor --> Auth
+        Motor --> Pers
+    end
+
+    subgraph fw["Parte 1 - framework-xp/"]
+        direction TB
+        Cli["XpCli y comandos ComandoXP"]
+        Runner["EjecutorPruebas, Afirmar"]
+        Cli --> Runner
+    end
+
+    subgraph archivos["Archivos del proyecto"]
+        direction TB
+        Cfg["config/equipo.properties<br/>config/integrantes.csv"]
+        Gen["datos/Grupo##.csv<br/>datos/automata-grupo##.md"]
+        Hormi["datos/hormiguero/*.csv"]
+        Xp["xp/historias.csv, metafora, CRC,<br/>plan, reuniones, spikes"]
+    end
+
+    CI["GitHub Actions<br/>compila, prueba, construye la imagen"]
+
+    Profesor --> UI
+    Profesor --> Consola
+    Profesor -.-> Navegador
+    Navegador --> Vnc
+    Vnc --> UI
+    Kgd --> UI
+    Equipo --> Cli
+    Cli --> Construir
+    Construir -->|compila y lanza| app
+    Construir -->|compila y prueba| fw
+    Runner -.->|prueba| app
+    Cfg -->|lee| Motor
+    Motor -->|regenera| Gen
+    Pers --> Hormi
+    Cli -->|lee y verifica| Xp
+    Cli -->|lee| Cfg
+    Ini --> Construir
+    CI --> Construir
+    CI --> docker
+```
+
+## Independencia entre las dos partes
+
+```mermaid
+flowchart LR
+    subgraph fw["framework-xp/src"]
+        F["ec.edu.epn.xp"]
+    end
+    subgraph ap["antdron/src"]
+        A["ec.edu.epn.antdron"]
+    end
+    subgraph pr["antdron/pruebas"]
+        T["pruebas de la aplicación"]
+    end
+    FT["framework-xp/pruebas"]
+
+    T -->|usa EjecutorPruebas y Afirmar| F
+    T -->|prueba| A
+    FT -->|prueba| F
+    A -. no depende .- F
+```
+
+La aplicación se compila **sin** el framework (`javac` solo con JavaFX). Solo las pruebas de la aplicación, que están en otra carpeta, usan el ejecutor de pruebas y `Afirmar` del framework. Así, borrar `framework-xp/` no rompe la aplicación.
+
+## Capas
+
+| Capa | Paquetes | Responsabilidad |
+|---|---|---|
+| Presentación | `ec.edu.epn.antdron.ui`, `App` (consola) | Pestañas JavaFX (Equipo, Coordenadas, Bomba y autómata, AntCiberDron, Hormiguero virtual) y modo consola. Solo muestran lo que entrega el motor. |
+| Orquestación | `MotorAntdron` | Lee `config/`, regenera `Grupo##.csv`, la bomba y `automata-grupo##.md`, y crea el AntCiberDron. |
+| Dominio | `hormiga`, `alimento`, `antciberdron`, `bomba`, `automata`, `sistema`, `pkAntCiberDronContract` | Reglas del enunciado: hormigas y alimentos, IA y armas, autómata, estrategia OTAN, coordenadas. |
+| Configuración y seguridad | `config`, `auth` | Lectura de `config/`, validación de usuarios (3 intentos) y claves con SHA-256. |
+| Persistencia | `persistencia` | Cuatro tablas CSV en `datos/hormiguero/`. |
+| Proceso XP | `framework-xp` | Comandos `xp ...` que dictan y verifican las prácticas XP. |
+
+## Decisiones de arquitectura
+
+| Decisión | Motivo | Consecuencia |
+|---|---|---|
+| JavaFX **sin FXML** | Las pantallas son código Java (`Ui` y los paneles). Menos archivos y nada que cargar en tiempo de ejecución. | Las vistas se prueban igual que cualquier clase; no hay editor visual. |
+| **Sin Maven** | Se pidió una construcción simple, sin instalar herramientas. | `herramientas/Construir.java` hace todo con solo un JDK 17+; ver `xp/spikes.md`. |
+| Persistencia **CSV** en lugar de base de datos | Sin Maven no hay controladores JDBC; los CSV se editan y se montan en Docker. | `TablaCsv` es simple; no hay transacciones ni concurrencia entre procesos. |
+| **Ejecutor de pruebas propio** | Sin Maven no hay JUnit; además permite el reporte de aceptación por historia con `@Historia`. | Solo existen las funciones necesarias de `Afirmar` y de las anotaciones `@Prueba`, `@AntesDeCada` y `@DespuesDeCada`. |
+| **Independencia verificada** | La aplicación sigue las directrices XP pero no importa el framework. | `Construir.java` compila la aplicación sin el framework; si algo lo importara, la compilación falla. |
+| **Configuración por archivo** | El equipo solo escribe cédulas en `config/integrantes.csv`. | Al recargar, el motor regenera coordenadas, bomba y autómata sin tocar código. |
+| **Docker con Xvfb + noVNC** | Probar la interfaz sin instalar Java ni tener pantalla. | `docker compose up --build` y abrir `http://localhost:6080/vnc.html`; `config/` y `datos/` se montan como volúmenes. |
+| **Integración continua** | Cada push compila, prueba y construye la imagen. | GitHub Actions ejecuta `java herramientas/Construir.java probar` y construye la imagen Docker. |
+
+## Cómo se ejecuta
+
+| Qué | Comando |
+|---|---|
+| Aplicación JavaFX | `antdron.cmd` o `antdron.cmd ejecutar` (Linux/macOS: `./antdron.sh`) |
+| Consola | `antdron.cmd consola` |
+| Pruebas y reporte de aceptación | `antdron.cmd probar` |
+| Framework XP | `antdron.cmd xp ayuda` |
+| Docker (interfaz en el navegador) | `docker compose up --build` y abrir `http://localhost:6080/vnc.html` |
+| Docker (consola) | `docker compose run --rm consola` |
