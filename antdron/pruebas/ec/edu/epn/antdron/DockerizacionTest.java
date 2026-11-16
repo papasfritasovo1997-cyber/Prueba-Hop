@@ -43,7 +43,7 @@ class DockerizacionTest {
             Afirmar.contiene(ajustes, "\"" + carpeta + "\"");
             Afirmar.contiene(dockerfile, carpeta);
         }
-        Afirmar.contiene(ajustes, "lib/**/*.jar");
+        Afirmar.contiene(ajustes, "lib/javafx-graphics-21.0.5-win.jar");
     }
 
     @Prueba

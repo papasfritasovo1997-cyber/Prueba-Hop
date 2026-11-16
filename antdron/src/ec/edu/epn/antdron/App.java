@@ -45,7 +45,14 @@ public final class App {
 
     public static void main(String[] args) {
         if (args.length == 0 || args[0].equals("gui")) {
-            AntdronFx.iniciar(args);
+            try {
+                AntdronFx.iniciar(args);
+            } catch (UnsupportedClassVersionError e) {
+                System.err.println("El JavaFX del classpath necesita un Java más nuevo que el instalado ("
+                        + System.getProperty("java.version") + ").\nUse solo el JavaFX 21.0.5 de lib/: quite "
+                        + "cualquier otro JavaFX de «Referenced Libraries» en VS Code y de la carpeta lib/.");
+                System.exit(1);
+            }
             return;
         }
         if (args[0].equals("automata")) {

@@ -7,9 +7,12 @@
         "antdron/pruebas"
     ],
     "java.project.outputPath": "bin",
-    // JavaFX 21 para Windows (las DLL vienen dentro de los .jar).
+    // JavaFX 21.0.5 para Windows (las DLL vienen dentro de los .jar). Funciona con Java 17 o superior.
+    // No agregue otro JavaFX: JavaFX 27 exige Java 25 y falla con Java 21.
     "java.project.referencedLibraries": [
-        "lib/**/*.jar"
+        "lib/javafx-base-21.0.5-win.jar",
+        "lib/javafx-graphics-21.0.5-win.jar",
+        "lib/javafx-controls-21.0.5-win.jar"
     ],
     "files.encoding": "utf8",
     "files.exclude": {
