@@ -1,0 +1,13 @@
+# Generado por herramientas/Construir.java
+build/
+.javafx/
+
+# Generado por la aplicación a partir de config/ (se puede regenerar en cualquier momento)
+datos/hormiguero/
+
+.idea/
+.vscode/
+*.iml
+.DS_Store
+.hoplite/
+.entrega-local/
