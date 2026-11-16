@@ -10,7 +10,7 @@ services:
     volumes:
       - hormiguero-db:/opt/antdron/db
     healthcheck:
-      test: ["CMD-SHELL", "exec 3<>/dev/tcp/127.0.0.1/8080 && printf 'GET /salud HTTP/1.0\\r\\n\\r\\n' >&3 && grep -q OK <&3"]
+      test: ["CMD", "curl", "-fsS", "http://127.0.0.1:8080/salud"]
       interval: 10s
       timeout: 3s
       retries: 5
