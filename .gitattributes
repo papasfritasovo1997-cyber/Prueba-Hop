@@ -1,0 +1,6 @@
+# Scripts de Windows con CRLF (cmd falla con LF); scripts de shell con LF.
+*.cmd text eol=crlf
+*.bat text eol=crlf
+*.sh  text eol=lf
+*.java text eol=lf
+*.csv text eol=lf
