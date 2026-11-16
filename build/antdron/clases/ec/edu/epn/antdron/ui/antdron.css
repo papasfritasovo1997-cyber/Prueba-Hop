@@ -1,0 +1,62 @@
+.root {
+    -fx-font-family: "Segoe UI", "Helvetica Neue", "Arial", sans-serif;
+    -fx-font-size: 13px;
+    -fx-base: #1f2937;
+    -fx-background: #111827;
+    -fx-control-inner-background: #111827;
+    -fx-accent: #b91c1c;
+    -fx-focus-color: #ef4444;
+    -fx-text-fill: #e5e7eb;
+}
+
+.fondo { -fx-background-color: #111827; }
+
+.barra {
+    -fx-background-color: #7f1d1d;
+    -fx-padding: 10 18 10 18;
+}
+.barra .label { -fx-text-fill: #fef2f2; }
+.barra .marca { -fx-font-size: 18px; -fx-font-weight: bold; }
+
+.titulo { -fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #f9fafb; }
+.subtitulo { -fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: #fca5a5; }
+.label { -fx-text-fill: #e5e7eb; }
+.tenue { -fx-text-fill: #9ca3af; }
+
+.tarjeta {
+    -fx-background-color: #1f2937;
+    -fx-background-radius: 10;
+    -fx-border-color: #374151;
+    -fx-border-radius: 10;
+}
+
+.aviso, .aviso-error, .aviso-ok {
+    -fx-padding: 8 12 8 12;
+    -fx-background-radius: 8;
+}
+.aviso { -fx-background-color: #78350f; -fx-text-fill: #fef3c7; }
+.aviso-error { -fx-background-color: #7f1d1d; -fx-text-fill: #fee2e2; }
+.aviso-ok { -fx-background-color: #064e3b; -fx-text-fill: #d1fae5; }
+
+.button { -fx-background-radius: 6; -fx-cursor: hand; }
+.button.primario { -fx-base: #b91c1c; -fx-font-weight: bold; }
+
+.text-field, .password-field, .combo-box, .spinner, .text-area {
+    -fx-background-radius: 6;
+}
+
+.mono, .mono .content {
+    -fx-font-family: "Consolas", "DejaVu Sans Mono", "Menlo", monospace;
+    -fx-font-size: 13px;
+}
+
+.table-view { -fx-background-radius: 6; }
+.table-view .column-header .label { -fx-font-weight: bold; }
+.table-row-cell.explota { -fx-background-color: #7f1d1d; }
+.loading { -fx-font-family: "Consolas", "DejaVu Sans Mono", monospace; -fx-text-fill: #fbbf24; }
+
+.tab-pane .tab { -fx-padding: 6 14 6 14; }
+.tab-pane .tab:selected { -fx-base: #b91c1c; }
+
+.progress-bar > .bar { -fx-background-color: #f59e0b; }
+.lienzo { -fx-background-color: #0b1220; -fx-background-radius: 8; }
