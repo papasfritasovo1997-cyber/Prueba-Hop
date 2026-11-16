@@ -1,0 +1,24 @@
+# Interfaz gráfica:  docker compose up --build        → abra http://localhost:6080/vnc.html
+# Consola:           docker compose run --rm consola
+# Pruebas:           docker compose run --rm antdron probar
+# config/ se monta desde su carpeta: edite las cédulas y pulse «Recargar configuración» en la aplicación.
+services:
+  antdron:
+    build: .
+    image: antdron:latest
+    command: ["gui"]
+    ports:
+      - "6080:6080"
+    volumes:
+      - ./config:/opt/antdron/config
+      - ./datos:/opt/antdron/datos
+
+  consola:
+    image: antdron:latest
+    command: ["consola"]
+    stdin_open: true
+    tty: true
+    profiles: ["consola"]
+    volumes:
+      - ./config:/opt/antdron/config
+      - ./datos:/opt/antdron/datos

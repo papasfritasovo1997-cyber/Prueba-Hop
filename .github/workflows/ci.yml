@@ -1,0 +1,53 @@
+name: CI XP
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  pruebas:
+    name: Pruebas y directrices XP
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "21"
+
+      - name: Compilar y probar (framework + aplicación, sin Maven)
+        run: java herramientas/Construir.java probar
+
+      - name: Reporte de aceptación en el resumen
+        if: always()
+        run: cat xp/pruebas-aceptacion.md >> "$GITHUB_STEP_SUMMARY" || true
+
+      - name: Directrices XP (informativo)
+        run: java herramientas/Construir.java xp verificar || true
+
+      - name: Consola con el usuario del profesor
+        run: printf 'patmic\n123\n' | java herramientas/Construir.java consola
+
+  docker:
+    name: Imagen Docker
+    needs: pruebas
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Construir la imagen (ejecuta las pruebas)
+        run: docker compose build antdron
+
+      - name: La interfaz responde por noVNC
+        run: |
+          docker compose up -d antdron
+          for i in $(seq 1 30); do curl -fsS http://localhost:6080/vnc.html >/dev/null && break; sleep 2; done
+          curl -fsS http://localhost:6080/vnc.html | grep -qi novnc
+
+      - name: Apagar
+        if: always()
+        run: docker compose down -v

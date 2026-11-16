@@ -1,0 +1,11 @@
+# Integrantes del grupo. Separador: punto y coma.
+# cedula: déjela vacía hasta tenerla; con solo escribirla, la aplicación genera Grupo##.csv, la bomba y el autómata.
+# clave: texto tal cual o sha256:<hash> (antdron xp no la usa).
+# rol: ENTRENADOR, CLIENTE, ENCARGADO_PRUEBAS, ENCARGADO_SEGUIMIENTO, CONSULTOR o GESTOR.
+cedula;nombre;usuario;clave;rol
+;Integrante 1;integrante1;1234;ENTRENADOR
+;Integrante 2;integrante2;1234;CLIENTE
+;Integrante 3;integrante3;1234;ENCARGADO_PRUEBAS
+;Integrante 4;integrante4;1234;ENCARGADO_SEGUIMIENTO
+;Integrante 5;integrante5;1234;CONSULTOR
+;Integrante 6;integrante6;1234;GESTOR
