@@ -11,11 +11,11 @@ La aplicación cumple las directrices produciendo artefactos (historias, tarjeta
 
 ## 1. Resumen por integrante
 
-Cada integrante tiene **un rol XP**, **una historia del framework**, **historias de la aplicación** y **un diagrama o documento**. La carga está equilibrada en **8 o 9 puntos** por persona (1 punto ≈ 1 día ideal de trabajo en pareja).
+Cada integrante tiene **un rol XP**, **una historia del framework**, **historias de la aplicación** y **un diagrama o documento**. La carga está equilibrada en **8 o 9 puntos** por persona. El proyecto dura **2 días**: 1 punto ≈ 1 hora ideal de trabajo en pareja.
 
 | # | Nombre | Rol XP | Parte 1 · Framework | Parte 2 · Aplicación | Diagrama / documento | Pts |
 |---|---|---|---|---|---|---|
-| 1 | | Entrenador (Coach) | XP-01 Núcleo y directrices (3) | HU-06 Autómata y bomba (5) | Grafo con gramática del autómata | 8 |
+| 1 | | Entrenador (Coach) | XP-01 Núcleo y directrices (3) | HU-06 Autómata (3) · HU-14 Bomba (2) | Grafo con gramática del autómata | 8 |
 | 2 | | Cliente | XP-02 Historias de usuario (2) | HU-01 Autenticación (3) · HU-02 Equipo (1) · HU-09 Vuelo y fuente de poder (2) | Diagrama de casos de uso | 8 |
 | 3 | | Encargado de pruebas | XP-05 Pruebas de aceptación (3) | HU-03 Generar `Grupo##.csv` (3) · HU-04 Leer con loading (3) | Reporte de pruebas de aceptación | 9 |
 | 4 | | Encargado de seguimiento | XP-03 Plan de entregas y velocidad (3) | HU-05 Hormigas y alimentos (3) · HU-10 Idiomas (2) | Diagrama de clases | 8 |
@@ -54,10 +54,10 @@ Paquete base `ec.edu.epn.antdron`. Java 17, JUnit 5. Cada clase de prueba lleva 
 |---|---|---|---|
 | **HU-01** Autenticación | Integrante 2 | `auth` (`Autenticador`), `App` (consola), `config/integrantes.csv` | Usuario y contraseña de los integrantes y del profesor (`patmic`, `123`); máximo 3 intentos |
 | **HU-02** Presentar equipo | Integrante 2 | `auth` (`PresentadorEquipo`) | `[+] TEAM [N]: nombre` y `Alumno i: cédula \| nombre` |
-| **HU-03** Generar `Grupo##.csv` | Integrante 3 | `sistema` (`GeneradorCsv`), `data/Grupo##.csv` | Una coordenada por cada dígito de las cédulas, con el horario de la tabla OTAN y una palabra w del lenguaje de la coordenada en la última columna |
-| **HU-04** Leer coordenadas con loading | Integrante 3 | `sistema` (`SistemaRuso`, `CoordenadaUK`, `Loading`) | Por cada línea, un loading `\|/-` hasta 100%; tabla Loading, Geoposición, días y Tipo Arsenal |
+| **HU-03** Generar `Grupo##.csv` | Integrante 3 | `sistema` (`GeneradorCsv`, `CoordenadaUK`, `DiaSemana`), `data/Grupo##.csv` | Una coordenada por cada dígito de las cédulas, con el horario de la tabla OTAN y una palabra w del lenguaje de la coordenada en la última columna |
+| **HU-04** Leer coordenadas con loading | Integrante 3 | `sistema` (`SistemaRuso`, `Loading`) | Por cada línea, un loading `\|/-` hasta 100%; tabla Loading, Geoposición, días y Tipo Arsenal |
 | **HU-05** Hormigas y alimentos | Integrante 4 | `pkAntCiberDronContract.IHormiga`, `hormiga`, `alimento` | Todo TIPO_HORMIGA nace como HLarva, que vive con néctar; si come su ALIMENTO se transforma; el TIPO_HORMIGA vive solo con su ALIMENTO (1-2 HSoldado/Carnívoro, 3-4 HZángano/Omnívoro, 5 HRastreadora/Herbívoro) |
-| **HU-06** Autómata y bomba | Integrante 1 | `automata`, `bomba` | Autómata con el último dígito de cada cédula; definición formal, gramática y grafo; la bomba explota solo en coordenadas objetivo con arsenal del lenguaje |
+| **HU-06** Autómata | Integrante 1 | `automata` | Autómata con el último dígito de cada cédula: AFD mínimo, definición formal, gramática y grafo |
 | **HU-07** IA buscar arsenal | Integrante 5 | `pkAntCiberDronContract.IIA`, `antciberdron` (`AntCiberDron`) | `buscar(tipoArsenal)` devuelve true o false según el autómata y presenta Geoposición, Tipo Arsenal y Acción |
 | **HU-08** Armas | Integrante 5 | `antciberdron` (`Arma`, `Metralleta`, `Laser`) | Metralleta en la pata delantera derecha; láser en la izquierda, con potencia según la energía de la fuente de poder |
 | **HU-09** Vuelo y fuente de poder | Integrante 2 | `antciberdron` (`FuentePoder`, `TurboReactor`) | Turbo reactor en la espalda que vuela con energía; fuente recargable y reemplazable bajo la asistencia de la IIA |
@@ -65,6 +65,7 @@ Paquete base `ec.edu.epn.antdron`. Java 17, JUnit 5. Cada clase de prueba lleva 
 | **HU-11** Pantallas del hormiguero | Integrante 6 | `web` | Los usuarios de la KGD tienen su hormiguero virtual y crean sus hormigas |
 | **HU-12** Persistencia | Integrante 6 | `persistencia` | El hormiguero de cada usuario se guarda; claves con hash |
 | **HU-13** Aplicación dockerizada | Integrante 5 | `antdron/Dockerfile`, `docker-compose.yml` (raíz) | La aplicación se construye y ejecuta con Docker |
+| **HU-14** Bomba | Integrante 1 | `bomba` | La bomba integra el autómata y explota solo en coordenadas objetivo con arsenal del lenguaje (destrucción exclusiva) |
 
 **Contratos de la aplicación.** Cada responsable expone exactamente estas firmas, para que los demás programen contra ellas desde el primer día.
 
@@ -77,28 +78,34 @@ Paquete base `ec.edu.epn.antdron`. Java 17, JUnit 5. Cada clase de prueba lleva 
 | Integrante 5 | `pkAntCiberDronContract.IIA`: `boolean buscar(String tipoArsenal)`. `antciberdron.AntCiberDron(Hormiga piloto, Bomba bomba, List<CoordenadaUK> coordenadas, FuentePoder fuente, TurboReactor turbo)` implementa `IIA` y decide con `bomba.debeExplotar(c.getGeoposicion(), c.getTipoArsenal())`. |
 | Integrante 6 | `persistencia.HormigueroServicio`: `registrar`, `autenticar`, `crearHormiga`, `alimentar`, `listar`; aplica las reglas de `Hormiga.comer` de HU-05. `web` atiende en el puerto `PORT` (8080 por defecto). |
 
-## 4. Plan de iteraciones
+## 4. Plan de iteraciones (2 días)
 
-| Iteración | Objetivo | Historias (responsable) | Pts |
-|---|---|---|---|
-| 0 · Arranque | Estructura de ambas partes, directrices y contratos | XP-01 (1) | 3 |
-| 1 · Framework | Framework XP completo | XP-02 (2), XP-03 (4), XP-04 (5), XP-05 (3), XP-06 (6) | 13 |
-| 2 · Base de la app | Piezas sin dependencias entre secciones | HU-06 (1), HU-01 + HU-02 (2), HU-03 (3), HU-05 (4), HU-08 (5), HU-12 (6) | 20 |
-| 3 · AntCiberDron | Piezas que usan los contratos de la iteración 2 | HU-09 (2), HU-04 (3), HU-10 (4), HU-07 (5), HU-11 (6) | 13 |
-| 4 · Entrega | Docker, integración final y diagramas | HU-13 (5), integración de `App` (2), diagramas (todos), reporte de aceptación (3) | 2 + docs |
+Cada día es una iteración. Una jornada tiene unas 6 horas de desarrollo: el día 1 cada integrante compromete hasta 6 puntos y el día 2 deja tiempo para integrar, documentar y aceptar. El horario de cada día está en `framework-xp/docs/guia-xp.md`, sección 6.
 
-El Integrante 1 sube primero la iteración 0 (los `pom.xml`, `xp.properties` y la guía); los demás empiezan sobre esa estructura. En las iteraciones 3 y 4 el Integrante 1 se dedica al rol de Coach: revisa los pull requests, hace cumplir la guía y coordina la integración.
+| # | Día 1 · Iteración 1: framework y base de la app | Pts | Día 2 · Iteración 2: AntCiberDron, integración y entrega | Pts |
+|---|---|---|---|---|
+| 1 | **Primera hora:** estructura de ambas partes y XP-01 · HU-06 Autómata | 6 | HU-14 Bomba (mañana) · Coach: revisión de PRs e integración · grafo con todas las cédulas | 2 |
+| 2 | XP-02 · HU-01 Autenticación · HU-02 Equipo | 6 | HU-09 Fuente de poder (mañana) · integración de `App` · casos de uso | 2 |
+| 3 | XP-05 · HU-03 `Grupo##.csv` (incluye `CoordenadaUK`) | 6 | HU-04 Lectura con loading · reporte de aceptación | 3 |
+| 4 | XP-03 · HU-05 Hormigas y alimentos | 6 | HU-10 Idiomas · diagrama de clases | 2 |
+| 5 | XP-04 · HU-13 Dockerfile y compose | 4 | HU-08 Armas · HU-07 IA buscar (tarde) · arquitectura | 5 |
+| 6 | XP-06 · HU-12 Persistencia | 6 | HU-11 Pantallas del hormiguero · modelo ER | 3 |
+| | **Total** | **34** | | **17** |
+
+**Orden de dependencias del día 2:** las piezas que otros usan se hacen por la mañana (Bomba, FuentePoder, `SistemaRuso`). HU-07 se integra por la tarde, cuando ya están Bomba, `CoordenadaUK`, `Hormiga` y `FuentePoder`. Mientras tanto, todos programan contra las firmas de la sección 3.
+
+**Día 1, primera hora:** el Integrante 1 sube la estructura (`pom.xml` de ambas partes, `xp.properties` y la guía) y los demás empiezan sobre ella. La velocidad medida al cierre del día 1 (`xp velocidad`) decide qué entra el día 2; lo que no quepa se negocia con el Cliente.
 
 ## 5. Parejas (programación por parejas)
 
-Rotación del método del círculo: en 5 rondas cada integrante trabaja una vez con cada compañero. El comando `xp parejas` (XP-06) la calcula.
+Cuatro bloques de trabajo (mañana y tarde de cada día), con la rotación del método del círculo. El comando `xp parejas` (XP-06) la calcula.
 
-| Iteración | Pareja A | Pareja B | Pareja C |
+| Bloque | Pareja A | Pareja B | Pareja C |
 |---|---|---|---|
-| 1 | 1 – 6 | 2 – 5 | 3 – 4 |
-| 2 | 1 – 5 | 6 – 4 | 2 – 3 |
-| 3 | 1 – 4 | 5 – 3 | 6 – 2 |
-| 4 | 1 – 3 | 4 – 2 | 5 – 6 |
+| Día 1 · mañana | 1 – 6 | 2 – 5 | 3 – 4 |
+| Día 1 · tarde | 1 – 5 | 6 – 4 | 2 – 3 |
+| Día 2 · mañana | 1 – 4 | 5 – 3 | 6 – 2 |
+| Día 2 · tarde | 1 – 3 | 4 – 2 | 5 – 6 |
 
 En cada pareja se avanzan las historias de los dos integrantes; el dueño de la historia conduce y el otro navega.
 
