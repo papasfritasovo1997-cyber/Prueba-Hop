@@ -1,6 +1,6 @@
 # Framework XP · Guía de directrices
 
-**Responsable:** Integrante 1 (Entrenador / Coach) · **Historia:** XP-01
+**Responsable:** Sebastián Jibaja (Entrenador / Coach) · **Historia:** XP-01
 
 Este framework es la **Parte 1** del proyecto. Define *cómo* trabaja el equipo con Extreme Programming y trae herramientas para comprobar que se cumple. La **Parte 2** (la aplicación AntCiberDron) sigue estas directrices, pero **no depende del framework**: compila, se prueba y se ejecuta sin él.
 
@@ -43,8 +43,8 @@ Todos los roles programan. El rol de cada integrante se declara en `config/integ
 | II. Diseño | Metáfora del sistema | Consultor | `xp/metafora.md` | Una historia compartida explica el sistema y nombra sus partes. |
 | | Tarjetas CRC | Consultor | `xp/tarjetas-crc.md` | Toda clase principal tiene tarjeta y se actualiza con el código. |
 | | Soluciones puntuales | Consultor | `xp/spikes.md` | Prototipo pequeño y desechable ante cada duda técnica; se anota la conclusión. |
-| | Funcionalidad mínima | Coach | — | Solo se programa lo que piden las historias de la iteración. |
-| | Reciclaje | Coach | — | Se refactoriza con todas las pruebas en verde. |
+| | Funcionalidad mínima | Cliente | `xp/funcionalidad-minima.md` | Solo se programa lo que piden las historias de la iteración; el Cliente deja escrito qué historias son imprescindibles. |
+| | Reciclaje | Coach | `xp/reciclaje.md` (en ANTDRON, la clase `Utility`) | Se refactoriza con todas las pruebas en verde. |
 | III. Desarrollo | Disponibilidad del cliente | Cliente | `config/integrantes.csv` | Hay un integrante con rol CLIENTE que responde dudas y acepta historias. |
 | | Unidad de pruebas | Tester | `pruebas` | La prueba se escribe antes que el código; cada clase de prueba lleva `@Historia("<id>")`. |
 | | Programación por parejas | Gestor | `config/integrantes.csv` | Todo el código de producción se escribe en parejas. |

@@ -1,6 +1,6 @@
 # Grafo y gramática del autómata de la bomba
 
-**Responsable:** Integrante 1 (Entrenador) · **Historias:** HU-06 (autómata) y HU-14 (bomba) · **Código:** `antdron/src/ec/edu/epn/antdron/automata` y `bomba`
+**Responsable:** Sebastián Jibaja (Entrenador) · **Historias:** HU-06 (autómata) y HU-14 (bomba) · **Código:** `antdron/src/ec/edu/epn/antdron/automata` y `bomba`
 
 ## 1. Regla del enunciado
 
@@ -152,8 +152,8 @@ Ejemplo de `config/integrantes.csv` (se usan las cédulas del enunciado solo com
 
 ```text
 cedula;nombre;usuario;clave;rol
-1103635;Integrante 1;integrante1;1234;ENTRENADOR
-1503639;Integrante 2;integrante2;1234;CLIENTE
+1103635;Sebastián Jibaja;sjibaja;1234;ENTRENADOR
+1503639;Karen Mosquera;kmosquera;1234;CLIENTE
 ```
 
 Con esas dos cédulas, `datos/automata-grupo##.md` contiene el autómata del ejemplo de la sección 3 (L = { abcdt+ , ab* }).
