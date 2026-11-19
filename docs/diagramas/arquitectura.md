@@ -1,6 +1,6 @@
 # Arquitectura
 
-**Responsable:** Integrante 5 (Consultor) · **Historias:** XP-04 (diseño) y HU-13 (aplicación dockerizada).
+**Responsable:** Daniel Mera (Consultor) · **Historias:** XP-04 (diseño) y HU-13 (aplicación dockerizada).
 
 El proyecto son **dos partes independientes** que se abren juntas en **VS Code** (Windows) y una imagen Docker. No se usa Maven ni herramienta de construcción: VS Code compila las cuatro carpetas de fuentes en `bin/` con los `.jar` de JavaFX 21.0.5 para Windows que trae `lib/`, y Docker compila lo mismo con `javac` y JavaFX para Linux.
 
@@ -35,7 +35,7 @@ flowchart TB
         Motor["MotorAntdron"]
         Dominio["Dominio: hormiga, alimento, antciberdron, bomba, automata, sistema"]
         Auth["auth + config"]
-        Pers["persistencia - TablaCsv, HormigueroServicio"]
+        Pers["persistencia - BaseDatos, HormigueroServicio"]
         UI --> Motor
         Consola --> Motor
         Motor --> Dominio
@@ -54,7 +54,7 @@ flowchart TB
         direction TB
         Cfg["config/equipo.properties<br/>config/integrantes.csv"]
         Gen["datos/Grupo##.csv<br/>datos/automata-grupo##.md"]
-        Hormi["datos/hormiguero/*.csv"]
+        Hormi["datos/hormiguero/hormiguero.db (SQLite)"]
         Xp["xp/historias.csv, metafora, CRC,<br/>plan, reuniones, spikes"]
     end
 
@@ -108,7 +108,7 @@ La aplicación se compila **sin** el framework (`javac` solo con JavaFX). Solo l
 | Orquestación | `MotorAntdron` | Lee `config/`, regenera `Grupo##.csv`, la bomba y `automata-grupo##.md`, y crea el AntCiberDron. |
 | Dominio | `hormiga`, `alimento`, `antciberdron`, `bomba`, `automata`, `sistema`, `pkAntCiberDronContract` | Reglas del enunciado: hormigas y alimentos, IA y armas, autómata, estrategia OTAN, coordenadas. |
 | Configuración y seguridad | `config`, `auth` | Lectura de `config/`, validación de usuarios (3 intentos) y claves con SHA-256. |
-| Persistencia | `persistencia` | Cuatro tablas CSV en `datos/hormiguero/`. |
+| Persistencia | `persistencia` | Base SQLite `datos/hormiguero/hormiguero.db` con cuatro tablas (ver `modelo-er.md`). |
 | Proceso XP | `framework-xp` | Comandos `xp ...` que dictan y verifican las prácticas XP. |
 
 ## Decisiones de arquitectura
@@ -117,7 +117,7 @@ La aplicación se compila **sin** el framework (`javac` solo con JavaFX). Solo l
 |---|---|---|
 | JavaFX **sin FXML** | Las pantallas son código Java (`Ui` y los paneles). Menos archivos y nada que cargar en tiempo de ejecución. | Las vistas se prueban igual que cualquier clase; no hay editor visual. |
 | **Sin Maven ni herramienta de construcción** | Se trabaja en Windows con VS Code; nada que instalar aparte del JDK y la extensión de Java. | `.vscode/settings.json` define las carpetas de fuentes y `lib/` trae JavaFX; ver `xp/spikes.md`. |
-| Persistencia **CSV** en lugar de base de datos | Sin Maven no hay controladores JDBC; los CSV se editan y se montan en Docker. | `TablaCsv` es simple; no hay transacciones ni concurrencia entre procesos. |
+| Persistencia en **SQLite** | Base de datos real en un solo archivo, sin servidor; el controlador es un único `.jar` en `lib/`. | Claves foráneas, valores permitidos y transacciones los garantiza la base; para ver los datos se usa una herramienta como DB Browser for SQLite. |
 | **Ejecutor de pruebas propio** | Sin Maven no hay JUnit; además permite el reporte de aceptación por historia con `@Historia`. | Solo existen las funciones necesarias de `Afirmar` y de las anotaciones `@Prueba`, `@AntesDeCada` y `@DespuesDeCada`. |
 | **Independencia verificada** | La aplicación sigue las directrices XP pero no importa el framework. | `IndependenciaTest` falla si `antdron/src` importa el framework, y Docker compila la aplicación sola. |
 | **Configuración por archivo** | El equipo solo escribe cédulas en `config/integrantes.csv`. | Al recargar, el motor regenera coordenadas, bomba y autómata sin tocar código. |

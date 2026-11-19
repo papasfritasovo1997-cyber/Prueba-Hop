@@ -1,16 +1,16 @@
 # Soluciones puntuales (spikes)
 
-**Responsable:** Integrante 5 (Consultor) · **Práctica XP:** Soluciones puntuales (spikes)
+**Responsable:** Daniel Mera (Consultor) · **Práctica XP:** Soluciones puntuales (spikes) · **Defienden en S2:** Sebastián Jibaja (spikes 1 y 5), Daniel Mera (2), Leonel Morales (3) y Kened Lugmaña (4)
 
 Un **spike** es una investigación corta para reducir un riesgo técnico antes de estimar o programar una historia. Cada uno responde una pregunta, tiene un tiempo máximo y termina con una **decisión**. Aquí se resumen los cinco spikes del proyecto.
 
-| Spike | Historia | Pregunta | Decisión |
-|---|---|---|---|
-| 1 | HU-13, XP-05 | ¿Se puede usar JavaFX sin Maven? | Sí: VS Code compila con los `.jar` de JavaFX para Windows en `lib/`. |
-| 2 | HU-13 | ¿Se puede ver una interfaz gráfica dentro de Docker? | Sí: Xvfb + x11vnc + noVNC en el puerto 6080. |
-| 3 | HU-12 | ¿SQLite o CSV para el hormiguero? | CSV, con el mismo modelo ER. |
-| 4 | XP-05 | ¿JUnit o un ejecutor de pruebas propio? | Ejecutor propio con `@Prueba` y `@Historia`. |
-| 5 | HU-06 | ¿Cómo construir el AFD mínimo? | Subconjuntos + minimización de Moore. |
+| Spike | Historia | Responsable | Pregunta | Decisión |
+|---|---|---|---|---|
+| 1 | HU-13, XP-05 | Sebastián Jibaja | ¿Se puede usar JavaFX sin Maven? | Sí: VS Code compila con los `.jar` de JavaFX para Windows en `lib/`. |
+| 2 | HU-13 | Daniel Mera | ¿Se puede ver una interfaz gráfica dentro de Docker? | Sí: Xvfb + x11vnc + noVNC en el puerto 6080. |
+| 3 | HU-12 | Leonel Morales | ¿SQLite o CSV para el hormiguero? | Primero CSV; revisado: SQLite (`datos/hormiguero/hormiguero.db`) con el mismo modelo ER. |
+| 4 | XP-05 | Kened Lugmaña | ¿JUnit o un ejecutor de pruebas propio? | Ejecutor propio con `@Prueba` y `@Historia`. |
+| 5 | HU-06 | Sebastián Jibaja | ¿Cómo construir el AFD mínimo? | Subconjuntos + minimización de Moore. |
 
 ---
 
@@ -61,8 +61,9 @@ Un **spike** es una investigación corta para reducir un riesgo técnico antes d
 | Ver y corregir los datos | Con una herramienta | Con cualquier editor o Excel |
 | Pruebas | Base temporal | Carpeta temporal |
 
-- **Decisión:** **CSV**, con el mismo modelo entidad-relación (`docs/diagramas/modelo-er.md`): `usuarios`, `hormigueros`, `hormigas` y `alimentaciones` en `datos/hormiguero/`. `TablaCsv` ofrece `filas`, `insertar` (id = máximo + 1) y `actualizar`. Las claves se guardan con sal y SHA-256.
-- **Consecuencias:** si el proyecto creciera, cambiar a una base de datos solo afectaría a `HormigueroServicio` y `TablaCsv`.
+- **Decisión inicial:** **CSV**, con el mismo modelo entidad-relación (`docs/diagramas/modelo-er.md`): `usuarios`, `hormigueros`, `hormigas` y `alimentaciones` en `datos/hormiguero/`. Las claves se guardan con sal y SHA-256.
+- **Revisión (decisión vigente):** **SQLite**. Al revisar HU-12 se comprobó que las hormigas no se guardaban en una base de datos, así que se agregó el controlador `lib/sqlite-jdbc-3.54.1.0.jar` (un solo `.jar`, sin dependencias obligatorias, con SQLite para Windows, Linux y Mac) al classpath de VS Code, Docker y las pruebas. Las tablas `usuario`, `hormiguero`, `hormiga` y `alimentacion` viven en `datos/hormiguero/hormiguero.db`; el esquema está en `persistencia/esquema.sql`.
+- **Consecuencias:** la base valida claves foráneas, valores permitidos y nombres de usuario únicos; registrar y alimentar se guardan en una transacción. Los CSV de la versión anterior se importan una vez de forma automática. Para ver los datos se usa una herramienta como DB Browser for SQLite.
 
 ## Spike 4 · Ejecutor de pruebas propio o JUnit
 

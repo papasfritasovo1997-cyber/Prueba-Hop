@@ -1,6 +1,6 @@
 # Diagrama de clases
 
-**Responsable:** Integrante 4 (Encargado de seguimiento) · **Historias:** HU-05 (hormigas y alimentos) y HU-10 (idiomas).
+**Responsable:** David Jumbo (Encargado de seguimiento) · **Historias:** HU-05 (hormigas y alimentos) y HU-10 (idiomas).
 
 El código tiene **dos partes independientes**: la aplicación `antdron/` (JavaFX) y el framework `framework-xp/`. La aplicación no importa ninguna clase del framework. Los diagramas están divididos por tema para que se lean bien; las relaciones entre diagramas se indican en el texto.
 
@@ -415,10 +415,9 @@ classDiagram
         String estado
         String creadaEn
     }
-    class TablaCsv {
-        ~filas() List
-        ~insertar(String[]) int
-        ~actualizar(int, UnaryOperator) void
+    class BaseDatos {
+        ~enTransaccion(Trabajo) T
+        ~getArchivo() Path
     }
     class GeneradorCsvGrupo
     class Bomba
@@ -445,13 +444,13 @@ classDiagram
     Autenticador ..> Claves
     Integrante ..> Claves
     PresentadorEquipo ..> Equipo
-    HormigueroServicio *-- TablaCsv : 4 tablas
+    HormigueroServicio *-- BaseDatos : hormiguero.db (SQLite)
     HormigueroServicio ..> HormigaRegistro : lista
     HormigueroServicio ..> Claves : hash con sal
     HormigueroServicio --> TipoHormiga
 ```
 
-## 5. Aplicación · Interfaz JavaFX (sin FXML)
+## 5. Aplicación · Interfaz JavaFX (sin FXML) y tablero XP
 
 Las clases de la interfaz son de acceso de paquete (`ec.edu.epn.antdron.ui`) salvo `AntdronFx`. Cada pestaña de `VistaPrincipal` es un panel que recibe el `MotorAntdron`.
 
@@ -494,6 +493,37 @@ classDiagram
         ~getRaiz() Parent
         ~getMotor() MotorAntdron
     }
+    class PanelTablero {
+        ~getRaiz() Parent
+    }
+    class TableroXp {
+        +cargar(Path, Equipo)$ TableroXp
+        +estado(Tarea) EstadoTarea
+        +porIntegrante() List
+        +porPractica() List
+        +porIteracion() List
+    }
+    class Tarea {
+        <<record>>
+        String id
+        String sesion
+        String practica
+        List responsables
+        String artefacto
+        String evidencia
+    }
+    class EstadoTarea {
+        <<enumeration>>
+        POR_HACER
+        EN_CURSO
+        HECHA
+    }
+    class Utility {
+        +camposCsv(String)$ String[]
+        +esLineaIgnorable(String, String)$ boolean
+        +leerTexto(Path)$ String
+        +normalizar(String)$ String
+    }
     class Ui {
         ~estilos() String
         ~titulo(String) Label
@@ -518,6 +548,11 @@ classDiagram
     VistaPrincipal *-- PanelAutomata
     VistaPrincipal *-- PanelDron
     VistaPrincipal *-- VistaKgd
+    VistaPrincipal *-- PanelTablero
+    PanelTablero --> TableroXp : xp/tareas.csv
+    TableroXp *-- Tarea
+    TableroXp ..> EstadoTarea
+    TableroXp ..> Utility
     PanelAutomata --> LienzoAutomata
     LienzoAutomata ..> Automata
     PanelDron --> AntCiberDron
@@ -527,8 +562,11 @@ classDiagram
     PanelAutomata ..> Ui
     PanelDron ..> Ui
     VistaKgd ..> Ui
+    PanelTablero ..> Ui
     VistaIngreso ..> Ui
 ```
+
+`Utility` (paquete `pkAntCiberDronContract`) es el resultado del **reciclaje**: reúne el manejo de líneas CSV con `;`, la lectura de archivos editados en Windows y la normalización de textos que antes estaban repetidos. La usan `LectorConfiguracion`, `SistemaRuso`, `FabricaAlimentos`, `HormigueroServicio` (importación de los CSV anteriores) y `TableroXp`.
 
 ## 6. Framework XP (`framework-xp/`)
 
