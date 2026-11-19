@@ -1,6 +1,6 @@
 # Metáfora del sistema · «Hormiguero de guerra»
 
-**Responsable:** Integrante 5 (Consultor) · **Práctica XP:** Metáfora del sistema
+**Responsable:** Daniel Mera (Consultor) · **Práctica XP:** Metáfora del sistema
 
 > Cada módulo del sistema es una hormiga especializada que coopera con las demás para que el **AntCiberDron** cumpla su misión. La colonia obedece a una reina que no vemos —el archivo de configuración— y todo lo demás se organiza a partir de lo que ella pone en el nido.
 
@@ -26,7 +26,7 @@ La metáfora da un vocabulario común: cuando alguien dice «la exploradora no e
 | **La intérprete** | Idiomas | `ModuloIdiomas`, `ExpertoParlante`, `Idioma`, `AspectoLinguistico` | Aprende inglés y español, pero solo de un experto del idioma. |
 | **Las obreras** | Hormigas | `Hormiga`, `HLarva`, `HSoldado`, `HZangano`, `HRastreadora`, `TipoHormiga`, `Extremidad` | La colonia misma. Todas nacen como larva y se transforman al comer. |
 | **La despensa** | Alimentos | `Alimento`, `ANectar`, `ACarnivoro`, `AOmnivoro`, `AHerbivoro`, `FabricaAlimentos` | Cada tipo de hormiga vive solo con su alimento. |
-| **La archivista** (memoria de la colonia) | Persistencia | `HormigueroServicio`, `TablaCsv`, `HormigaRegistro` | Guarda en CSV quién tiene qué hormigas y qué comieron. |
+| **La archivista** (memoria de la colonia) | Persistencia | `HormigueroServicio`, `BaseDatos`, `HormigaRegistro` | Guarda en una base SQLite quién tiene qué hormigas y qué comieron. |
 | **La atalaya** | Interfaz JavaFX | `AntdronFx`, `VistaIngreso`, `VistaPrincipal`, `Panel*`, `VistaKgd`, `Ui` | Desde ella los humanos miran el hormiguero y le dan órdenes. |
 
 ## Reglas de convivencia
