@@ -1,6 +1,6 @@
 # Estándar de código
 
-**Responsable:** Integrante 1 (Entrenador / Coach). Aplica a los dos proyectos (`framework-xp` y `antdron`). Cualquiera puede proponer cambios en la retrospectiva.
+**Responsable:** Sebastián Jibaja (Entrenador / Coach). Aplica a los dos proyectos (`framework-xp` y `antdron`). Cualquiera puede proponer cambios en la retrospectiva.
 
 ## Java 17+ y JavaFX
 
