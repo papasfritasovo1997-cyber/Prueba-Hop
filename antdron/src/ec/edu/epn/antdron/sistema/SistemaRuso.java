@@ -10,6 +10,8 @@ import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 
+import ec.edu.epn.antdron.pkAntCiberDronContract.Utility;
+
 /** Sistema ruso que lee el archivo ucraniano hackeado (diagrama de clases del enunciado). */
 public class SistemaRuso {
 
@@ -28,7 +30,7 @@ public class SistemaRuso {
             if (linea.isEmpty() || linea.startsWith("Geopos")) {
                 continue;
             }
-            String[] c = linea.split(";", -1);
+            String[] c = Utility.camposCsv(linea);
             if (c.length != 7) {
                 throw new IllegalArgumentException("Línea " + (i + 1) + " del CSV: se esperaban 7 columnas y hay "
                         + c.length);

@@ -16,6 +16,8 @@ ADD https://repo1.maven.org/maven2/org/openjfx/javafx-base/${JAVAFX}/javafx-base
     /opt/javafx/
 
 WORKDIR /opt/antdron
+# Controlador SQLite del hormiguero virtual (el mismo .jar que usa VS Code).
+COPY lib/sqlite-jdbc-3.54.1.0.jar lib/
 COPY framework-xp framework-xp
 COPY antdron antdron
 COPY config config
@@ -27,9 +29,9 @@ COPY docker/iniciar.sh docker/iniciar.sh
 # Compila las mismas cuatro carpetas que VS Code, copia los recursos y ejecuta todas las pruebas:
 # si alguna falla, la imagen no se construye.
 RUN find framework-xp/src framework-xp/pruebas antdron/src antdron/pruebas -name '*.java' > /tmp/fuentes.txt \
- && javac -encoding UTF-8 -nowarn -d bin -cp '/opt/javafx/*' @/tmp/fuentes.txt \
+ && javac -encoding UTF-8 -nowarn -d bin -cp '/opt/javafx/*:lib/*' @/tmp/fuentes.txt \
  && for d in framework-xp/src antdron/src; do (cd "$d" && find . -type f ! -name '*.java' -exec cp --parents {} /opt/antdron/bin/ \;); done \
- && java -Djava.awt.headless=true -cp 'bin:/opt/javafx/*' ec.edu.epn.xp.XpCli probar
+ && java -Djava.awt.headless=true -cp 'bin:/opt/javafx/*:lib/*' ec.edu.epn.xp.XpCli probar
 
 ENV ANTDRON_RAIZ=/opt/antdron \
     DISPLAY=:99
