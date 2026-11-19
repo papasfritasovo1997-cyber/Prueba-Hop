@@ -9,10 +9,12 @@
     "java.project.outputPath": "bin",
     // JavaFX 21.0.5 para Windows (las DLL vienen dentro de los .jar). Funciona con Java 17 o superior.
     // No agregue otro JavaFX: JavaFX 27 exige Java 25 y falla con Java 21.
+    // sqlite-jdbc guarda el hormiguero virtual en datos/hormiguero/hormiguero.db (trae SQLite para Windows, Linux y Mac).
     "java.project.referencedLibraries": [
         "lib/javafx-base-21.0.5-win.jar",
         "lib/javafx-graphics-21.0.5-win.jar",
-        "lib/javafx-controls-21.0.5-win.jar"
+        "lib/javafx-controls-21.0.5-win.jar",
+        "lib/sqlite-jdbc-3.54.1.0.jar"
     ],
     "files.encoding": "utf8",
     "files.exclude": {

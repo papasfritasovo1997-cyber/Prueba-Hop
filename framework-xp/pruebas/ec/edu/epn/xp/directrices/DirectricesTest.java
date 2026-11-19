@@ -47,7 +47,7 @@ class DirectricesTest {
         }
         Set<Practica> sinArtefacto = Arrays.stream(Practica.values())
                 .filter(p -> p.getArtefactoPorDefecto().isEmpty()).collect(Collectors.toSet());
-        Afirmar.igual(EnumSet.of(Practica.FUNCIONALIDAD_MINIMA, Practica.RECICLAJE), sinArtefacto);
+        Afirmar.igual(Set.of(), sinArtefacto, "las 17 prácticas tienen un artefacto verificable");
         Set<RolXP> responsables = Arrays.stream(Practica.values()).map(Practica::getResponsable)
                 .collect(Collectors.toSet());
         Afirmar.igual(EnumSet.allOf(RolXP.class), responsables, "cada rol es responsable de alguna práctica");
@@ -71,7 +71,7 @@ class DirectricesTest {
         ContextoXP c = contexto();
         Afirmar.igual("antdron/pruebas", c.relativa(c.artefacto(Practica.UNIDAD_PRUEBAS).orElseThrow()));
         Afirmar.igual("xp/historias.csv", c.relativa(c.artefacto(Practica.HISTORIAS_USUARIO).orElseThrow()));
-        Afirmar.verdadero(c.artefacto(Practica.RECICLAJE).isEmpty());
+        Afirmar.igual("xp/reciclaje.md", c.relativa(c.artefacto(Practica.RECICLAJE).orElseThrow()));
     }
 
     @Prueba
@@ -85,8 +85,8 @@ class DirectricesTest {
         Afirmar.verdadero(resultado(r, Practica.HISTORIAS_USUARIO).cumple());
         Afirmar.falso(resultado(r, Practica.PLAN_ENTREGAS).cumple(), "un archivo vacío no cuenta");
         Afirmar.falso(resultado(r, Practica.UNIDAD_PRUEBAS).cumple(), "un directorio vacío no cuenta");
-        Afirmar.verdadero(resultado(r, Practica.RECICLAJE).cumple());
-        Afirmar.falso(resultado(r, Practica.RECICLAJE).verificable());
+        Afirmar.falso(resultado(r, Practica.RECICLAJE).cumple(), "falta el artefacto del reciclaje");
+        Afirmar.verdadero(resultado(r, Practica.RECICLAJE).verificable());
 
         Files.writeString(raiz.resolve("pruebas/AlgoTest.java"), "class AlgoTest {}");
         r = ComandoVerificar.verificar(contexto(), List.of(Fase.DESARROLLO));
@@ -102,8 +102,8 @@ class DirectricesTest {
     void comandoVerificarMuestraElCumplimientoYFallaSiFaltaAlgo() throws IOException {
         Afirmar.igual(1, new ComandoVerificar().ejecutar(List.of(), contexto()));
         Afirmar.verdadero(out().contains("[FALTA] Historias de usuario → xp/historias.csv  (responsable: Cliente)"));
-        Afirmar.verdadero(out().contains("[•] Reciclaje (refactorización) (directriz sin artefacto)"));
-        Afirmar.verdadero(out().contains("Cumplimiento de directrices: 0/15"));
+        Afirmar.verdadero(out().contains("[FALTA] Reciclaje (refactorización) → xp/reciclaje.md"));
+        Afirmar.verdadero(out().contains("Cumplimiento de directrices: 0/17"));
 
         Files.writeString(raiz.resolve("xp.properties"), "artefacto.IMPLANTACION=Dockerfile\n");
         Files.writeString(raiz.resolve("Dockerfile"), "FROM scratch\n");
@@ -127,7 +127,7 @@ class DirectricesTest {
             }
         }
         Afirmar.igual(0, new ComandoVerificar().ejecutar(List.of(), contexto()));
-        Afirmar.verdadero(out().contains("Cumplimiento de directrices: 15/15"));
+        Afirmar.verdadero(out().contains("Cumplimiento de directrices: 17/17"));
     }
 
     @Prueba
@@ -141,7 +141,7 @@ class DirectricesTest {
         salida.reset();
         new ComandoDirectrices().ejecutar(List.of(), contexto());
         Afirmar.verdadero(out().contains("== IV. Pruebas =="));
-        Afirmar.verdadero(out().contains("(directriz de conducta, sin artefacto)"));
+        Afirmar.verdadero(out().contains("Artefacto: xp/funcionalidad-minima.md"));
         Afirmar.lanza(IllegalArgumentException.class,
                 () -> new ComandoDirectrices().ejecutar(List.of("a", "b"), contexto()));
     }

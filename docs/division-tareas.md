@@ -16,11 +16,11 @@ Cada integrante tiene **un rol XP**, **una historia del framework**, **historias
 | # | Rol XP | Parte 1 · Framework | Parte 2 · Aplicación | Diagrama / documento | Pts |
 |---|---|---|---|---|---|
 | 1 | Entrenador (Coach) | XP-01 Núcleo y directrices (3) | HU-06 Autómata (3) · HU-14 Bomba (2) | Grafo con gramática del autómata, guía XP, estándar de código | 8 |
-| 2 | Cliente | XP-02 Historias de usuario (2) | HU-01 Autenticación (3) · HU-09 Vuelo y fuente de poder (2) · HU-15 Configuración por archivo (2) | Diagrama de casos de uso | 9 |
-| 3 | Encargado de pruebas | XP-05 Pruebas y aceptación (3) | HU-03 Generar `Grupo##.csv` (3) · HU-04 Leer con loading (3) | Reporte de pruebas de aceptación | 9 |
-| 4 | Encargado de seguimiento | XP-03 Plan de entregas y velocidad (3) | HU-05 Hormigas y alimentos (3) · HU-10 Idiomas (2) · HU-02 Presentar equipo (1) | Diagrama de clases, plan de entregas | 9 |
-| 5 | Consultor | XP-04 Diseño: metáfora y CRC (2) | HU-07 IA buscar (3) · HU-08 Armas (2) · HU-13 Docker (2) | Diagrama de arquitectura, tarjetas CRC, spikes | 9 |
-| 6 | Gestor | XP-06 Equipo, parejas e integración continua (3) | HU-11 Pantallas del hormiguero (3) · HU-12 Persistencia (3) | Modelo entidad-relación, actas de reuniones | 9 |
+| Karen Mosquera | Cliente | XP-02 Historias de usuario (2) | HU-01 Autenticación (3) · HU-09 Vuelo y fuente de poder (2) · HU-15 Configuración por archivo (2) | Diagrama de casos de uso | 9 |
+| Kened Lugmaña | Encargado de pruebas | XP-05 Pruebas y aceptación (3) | HU-03 Generar `Grupo##.csv` (3) · HU-04 Leer con loading (3) | Reporte de pruebas de aceptación | 9 |
+| David Jumbo | Encargado de seguimiento | XP-03 Plan de entregas y velocidad (3) | HU-05 Hormigas y alimentos (3) · HU-10 Idiomas (2) · HU-02 Presentar equipo (1) | Diagrama de clases, plan de entregas | 9 |
+| Daniel Mera | Consultor | XP-04 Diseño: metáfora y CRC (2) | HU-07 IA buscar (3) · HU-08 Armas (2) · HU-13 Docker (2) | Diagrama de arquitectura, tarjetas CRC, spikes | 9 |
+| Leonel Morales | Gestor | XP-06 Equipo, parejas e integración continua (3) | HU-11 Pantallas del hormiguero (3) · HU-12 Persistencia (3) | Modelo entidad-relación, actas de reuniones | 9 |
 
 Total: 16 puntos de framework + 37 de aplicación = 53 puntos.
 
@@ -28,12 +28,12 @@ Total: 16 puntos de framework + 37 de aplicación = 53 puntos.
 
 | Historia | Responsable | Paquete | Comandos |
 |---|---|---|---|
-| **XP-01** Núcleo y directrices | Integrante 1 | `ec.edu.epn.xp` (`XpCli`, `ComandoXP`, `ContextoXP`), `ec.edu.epn.xp.directrices`, `docs/`, `.vscode/` | `ayuda`, `directrices`, `verificar` |
-| **XP-02** Historias de usuario | Integrante 2 | `ec.edu.epn.xp.planificacion` | `backlog` |
-| **XP-03** Plan de entregas y velocidad | Integrante 4 | `ec.edu.epn.xp.seguimiento` | `plan [--proponer N]`, `velocidad` |
-| **XP-04** Diseño | Integrante 5 | `ec.edu.epn.xp.diseno` | `crc` |
-| **XP-05** Pruebas y aceptación | Integrante 3 | `ec.edu.epn.xp.pruebas` (`@Prueba`, `@Historia`, `Afirmar`, `EjecutorPruebas`) | `aceptacion`, y «Pruebas + reporte de aceptación» en VS Code |
-| **XP-06** Desarrollo | Integrante 6 | `ec.edu.epn.xp.desarrollo` | `equipo`, `parejas [ronda]` |
+| **XP-01** Núcleo y directrices | Sebastián Jibaja | `ec.edu.epn.xp` (`XpCli`, `ComandoXP`, `ContextoXP`), `ec.edu.epn.xp.directrices`, `docs/`, `.vscode/` | `ayuda`, `directrices`, `verificar` |
+| **XP-02** Historias de usuario | Karen Mosquera | `ec.edu.epn.xp.planificacion` | `backlog` |
+| **XP-03** Plan de entregas y velocidad | David Jumbo | `ec.edu.epn.xp.seguimiento` | `plan [--proponer N]`, `velocidad` |
+| **XP-04** Diseño | Daniel Mera | `ec.edu.epn.xp.diseno` | `crc` |
+| **XP-05** Pruebas y aceptación | Kened Lugmaña | `ec.edu.epn.xp.pruebas` (`@Prueba`, `@Historia`, `Afirmar`, `EjecutorPruebas`) | `aceptacion`, y «Pruebas + reporte de aceptación» en VS Code |
+| **XP-06** Desarrollo | Leonel Morales | `ec.edu.epn.xp.desarrollo` | `equipo`, `parejas [ronda]` |
 
 Cada comando implementa `ec.edu.epn.xp.ComandoXP` y se registra con una línea en `framework-xp/src/META-INF/services/ec.edu.epn.xp.ComandoXP`. Nadie toca el código de otro.
 
@@ -41,32 +41,32 @@ Cada comando implementa `ec.edu.epn.xp.ComandoXP` y se registra con una línea e
 
 | Historia | Responsable | Paquete / clases | Pantalla JavaFX |
 |---|---|---|---|
-| **HU-01** Autenticación | Integrante 2 | `auth.Autenticador`, `config` (`Equipo`, `Integrante`, `LectorConfiguracion`, `Claves`) | `VistaIngreso` |
-| **HU-02** Presentar equipo | Integrante 4 | `auth.PresentadorEquipo` | `PanelEquipo` |
-| **HU-03** Generar `Grupo##.csv` | Integrante 3 | `sistema` (`GeneradorCsvGrupo`, `EstrategiaOTAN`, `CoordenadaUK`, `DiaSemana`) | — |
-| **HU-04** Leer con loading | Integrante 3 | `sistema` (`SistemaRuso.readCoord`, `Loading`, `PresentadorCoordenadas`) | `PanelCoordenadas` |
-| **HU-05** Hormigas y alimentos | Integrante 4 | `pkAntCiberDronContract.IHormiga`, `hormiga`, `alimento` | — |
-| **HU-06** Autómata | Integrante 1 | `automata` (`Automata`, `ConstructorAutomata`, `Gramatica`, `ExportadorGrafo`, `LenguajesOTAN`) | `PanelAutomata`, `LienzoAutomata` |
-| **HU-07** IA buscar arsenal | Integrante 5 | `pkAntCiberDronContract.IIA`, `antciberdron.AntCiberDron` | `PanelDron` (búsqueda) |
-| **HU-08** Armas | Integrante 5 | `antciberdron` (`Arma`, `Metralleta`, `Laser`) | `PanelDron` (armas) |
-| **HU-09** Vuelo y fuente de poder | Integrante 2 | `antciberdron` (`FuentePoder`, `TurboReactor`) | `PanelDron` (energía) |
-| **HU-10** Idiomas | Integrante 4 | `antciberdron` (`ModuloIdiomas`, `ExpertoParlante`, `Idioma`, `AspectoLinguistico`) | `PanelDron` (idiomas) |
-| **HU-11** Pantallas del hormiguero | Integrante 6 | `ui` (`VistaKgd`, `AntdronFx`, `VistaPrincipal`, `Ui`) | `VistaKgd` |
-| **HU-12** Persistencia | Integrante 6 | `persistencia` (`HormigueroServicio`, `TablaCsv`) | — |
-| **HU-13** Docker | Integrante 5 | `Dockerfile`, `docker/iniciar.sh`, `docker-compose.yml` | GUI en el navegador (noVNC) |
-| **HU-14** Bomba | Integrante 1 | `bomba.Bomba` | `PanelAutomata` |
-| **HU-15** Configuración por archivo | Integrante 2 | `MotorAntdron`, `App` (consola) | «Recargar configuración» |
+| **HU-01** Autenticación | Karen Mosquera | `auth.Autenticador`, `config` (`Equipo`, `Integrante`, `LectorConfiguracion`, `Claves`) | `VistaIngreso` |
+| **HU-02** Presentar equipo | David Jumbo | `auth.PresentadorEquipo` | `PanelEquipo` |
+| **HU-03** Generar `Grupo##.csv` | Kened Lugmaña | `sistema` (`GeneradorCsvGrupo`, `EstrategiaOTAN`, `CoordenadaUK`, `DiaSemana`) | — |
+| **HU-04** Leer con loading | Kened Lugmaña | `sistema` (`SistemaRuso.readCoord`, `Loading`, `PresentadorCoordenadas`) | `PanelCoordenadas` |
+| **HU-05** Hormigas y alimentos | David Jumbo | `pkAntCiberDronContract.IHormiga`, `hormiga`, `alimento` | — |
+| **HU-06** Autómata | Sebastián Jibaja | `automata` (`Automata`, `ConstructorAutomata`, `Gramatica`, `ExportadorGrafo`, `LenguajesOTAN`) | `PanelAutomata`, `LienzoAutomata` |
+| **HU-07** IA buscar arsenal | Daniel Mera | `pkAntCiberDronContract.IIA`, `antciberdron.AntCiberDron` | `PanelDron` (búsqueda) |
+| **HU-08** Armas | Daniel Mera | `antciberdron` (`Arma`, `Metralleta`, `Laser`) | `PanelDron` (armas) |
+| **HU-09** Vuelo y fuente de poder | Karen Mosquera | `antciberdron` (`FuentePoder`, `TurboReactor`) | `PanelDron` (energía) |
+| **HU-10** Idiomas | David Jumbo | `antciberdron` (`ModuloIdiomas`, `ExpertoParlante`, `Idioma`, `AspectoLinguistico`) | `PanelDron` (idiomas) |
+| **HU-11** Pantallas del hormiguero | Leonel Morales | `ui` (`VistaKgd`, `AntdronFx`, `VistaPrincipal`, `Ui`) | `VistaKgd` |
+| **HU-12** Persistencia | Leonel Morales | `persistencia` (`HormigueroServicio`, `BaseDatos`, `esquema.sql`) | — |
+| **HU-13** Docker | Daniel Mera | `Dockerfile`, `docker/iniciar.sh`, `docker-compose.yml` | GUI en el navegador (noVNC) |
+| **HU-14** Bomba | Sebastián Jibaja | `bomba.Bomba` | `PanelAutomata` |
+| **HU-15** Configuración por archivo | Karen Mosquera | `MotorAntdron`, `App` (consola) | «Recargar configuración» |
 
 **Contratos entre secciones** (cada dueño los mantiene; un cambio se acuerda en la reunión de pie):
 
 | Dueño | Contrato |
 |---|---|
-| Integrante 1 | `new Bomba(List<String> cedulas)`: `debeExplotar(String geoposicion, String tipoArsenal)`, `evaluar(w)`, `lenguaje()`, `coordenadasObjetivo()`, `getAutomata()`. `LenguajesOTAN.expresion(d)`, `pertenece(d, w)`. |
-| Integrante 2 | `LectorConfiguracion.leer(Path)` → `Equipo` (`cedulas()`, `grupo()`, `integrantes()`). `Autenticador.intentar(usuario, clave)` → `ACEPTADO / RECHAZADO / BLOQUEADO`. `MotorAntdron.cargar(raiz)`. `FuentePoder`, `TurboReactor.volar(min, fuente)`. |
-| Integrante 3 | `SistemaRuso.readCoord(String fileName)` → `List<CoordenadaUK>`; `GeneradorCsvGrupo.escribir(Equipo, Path)`. |
-| Integrante 4 | `IHormiga.comer(Alimento)`, `Hormiga`, `HLarva(TipoHormiga)` con `getEvolucion()`, `TipoHormiga.paraGrupo(int)`, `FabricaAlimentos.desde(nombre)`. |
-| Integrante 5 | `IIA.buscar(String tipoArsenal)`; `AntCiberDron(piloto, bomba, coordenadas, fuente, turbo)` con `setPresentador(...)` y `buscarObjetivos()`. |
-| Integrante 6 | `HormigueroServicio(Path, TipoHormiga)`: `registrar`, `autenticar`, `crearHormiga`, `listar`, `alimentar`. |
+| Sebastián Jibaja | `new Bomba(List<String> cedulas)`: `debeExplotar(String geoposicion, String tipoArsenal)`, `evaluar(w)`, `lenguaje()`, `coordenadasObjetivo()`, `getAutomata()`. `LenguajesOTAN.expresion(d)`, `pertenece(d, w)`. |
+| Karen Mosquera | `LectorConfiguracion.leer(Path)` → `Equipo` (`cedulas()`, `grupo()`, `integrantes()`). `Autenticador.intentar(usuario, clave)` → `ACEPTADO / RECHAZADO / BLOQUEADO`. `MotorAntdron.cargar(raiz)`. `FuentePoder`, `TurboReactor.volar(min, fuente)`. |
+| Kened Lugmaña | `SistemaRuso.readCoord(String fileName)` → `List<CoordenadaUK>`; `GeneradorCsvGrupo.escribir(Equipo, Path)`. |
+| David Jumbo | `IHormiga.comer(Alimento)`, `Hormiga`, `HLarva(TipoHormiga)` con `getEvolucion()`, `TipoHormiga.paraGrupo(int)`, `FabricaAlimentos.desde(nombre)`. |
+| Daniel Mera | `IIA.buscar(String tipoArsenal)`; `AntCiberDron(piloto, bomba, coordenadas, fuente, turbo)` con `setPresentador(...)` y `buscarObjetivos()`. |
+| Leonel Morales | `HormigueroServicio(Path, TipoHormiga)`: `registrar`, `autenticar`, `crearHormiga`, `listar`, `alimentar`. |
 
 ## 4. Plan de 2 días (una iteración por día)
 

@@ -1,6 +1,6 @@
 # Diagrama de casos de uso
 
-**Responsable:** Integrante 2 (Cliente) · **Historias:** XP-02, HU-01, HU-02 y HU-09.
+**Responsable:** Karen Mosquera (Cliente) · **Historias:** XP-02, HU-01, HU-02 y HU-09.
 
 ## Actores
 

@@ -54,7 +54,8 @@ final class VistaPrincipal {
                 tabCoordenadas,
                 pestana("Bomba y autómata", new PanelAutomata(motor).getRaiz()),
                 pestana("AntCiberDron", new PanelDron(motor).getRaiz()),
-                pestana("Hormiguero virtual", new VistaKgd(motor, null).getRaiz()));
+                pestana("Hormiguero virtual", new VistaKgd(motor, null).getRaiz()),
+                pestana("Tablero XP", new PanelTablero(motor).getRaiz()));
         pestanas.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
         pestanas.setId("pestanas");
 

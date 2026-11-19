@@ -1,6 +1,6 @@
 # Plan de entregas · 2 días
 
-**Responsable:** Integrante 4 (Encargado de seguimiento) · **Práctica XP:** Plan de entregas, iteraciones y velocidad
+**Responsable:** David Jumbo (Encargado de seguimiento) · **Práctica XP:** Plan de entregas, iteraciones y velocidad
 
 El proyecto dura **dos días** y cada día es una iteración: **Día 1 = Iteración 1**, **Día 2 = Iteración 2**. Las historias, sus puntos, prioridades y responsables salen de `xp/historias.csv`; este documento solo las organiza. Para ver siempre los datos actualizados:
 
@@ -29,43 +29,43 @@ xp ...ocidad
 
 | # | Historia | Responsable | Rol XP | Prioridad | Puntos |
 |---|---|---|---|---|---:|
-| XP-01 | Núcleo y directrices XP | Integrante 1 | Entrenador | ALTA | 3 |
-| XP-02 | Historias de usuario | Integrante 2 | Cliente | ALTA | 2 |
-| XP-03 | Plan de entregas y velocidad | Integrante 4 | Encargado de seguimiento | ALTA | 3 |
-| XP-04 | Diseño: metáfora y tarjetas CRC | Integrante 5 | Consultor | MEDIA | 2 |
-| XP-05 | Pruebas unitarias y de aceptación | Integrante 3 | Encargado de pruebas | ALTA | 3 |
-| XP-06 | Equipo, parejas e integración continua | Integrante 6 | Gestor | ALTA | 3 |
-| HU-01 | Autenticación | Integrante 2 | Cliente | ALTA | 3 |
-| HU-03 | Generar `Grupo##.csv` | Integrante 3 | Encargado de pruebas | ALTA | 3 |
-| HU-05 | Hormigas y alimentos | Integrante 4 | Encargado de seguimiento | ALTA | 3 |
-| HU-06 | Autómata | Integrante 1 | Entrenador | ALTA | 3 |
-| HU-08 | Armas en patas delanteras | Integrante 5 | Consultor | MEDIA | 2 |
-| HU-12 | Persistencia | Integrante 6 | Gestor | MEDIA | 3 |
-| HU-13 | Aplicación dockerizada | Integrante 5 | Consultor | ALTA | 2 |
+| XP-01 | Núcleo y directrices XP | Sebastián Jibaja | Entrenador | ALTA | 3 |
+| XP-02 | Historias de usuario | Karen Mosquera | Cliente | ALTA | 2 |
+| XP-03 | Plan de entregas y velocidad | David Jumbo | Encargado de seguimiento | ALTA | 3 |
+| XP-04 | Diseño: metáfora y tarjetas CRC | Daniel Mera | Consultor | MEDIA | 2 |
+| XP-05 | Pruebas unitarias y de aceptación | Kened Lugmaña | Encargado de pruebas | ALTA | 3 |
+| XP-06 | Equipo, parejas e integración continua | Leonel Morales | Gestor | ALTA | 3 |
+| HU-01 | Autenticación | Karen Mosquera | Cliente | ALTA | 3 |
+| HU-03 | Generar `Grupo##.csv` | Kened Lugmaña | Encargado de pruebas | ALTA | 3 |
+| HU-05 | Hormigas y alimentos | David Jumbo | Encargado de seguimiento | ALTA | 3 |
+| HU-06 | Autómata | Sebastián Jibaja | Entrenador | ALTA | 3 |
+| HU-08 | Armas en patas delanteras | Daniel Mera | Consultor | MEDIA | 2 |
+| HU-12 | Persistencia | Leonel Morales | Gestor | MEDIA | 3 |
+| HU-13 | Aplicación dockerizada | Daniel Mera | Consultor | ALTA | 2 |
 
 ## Iteración 2 · Día 2 (18 puntos)
 
 | # | Historia | Responsable | Rol XP | Prioridad | Puntos |
 |---|---|---|---|---|---:|
-| HU-02 | Presentar equipo | Integrante 4 | Encargado de seguimiento | ALTA | 1 |
-| HU-04 | Leer coordenadas con loading | Integrante 3 | Encargado de pruebas | ALTA | 3 |
-| HU-07 | IA buscar arsenal | Integrante 5 | Consultor | ALTA | 3 |
-| HU-09 | Vuelo y fuente de poder | Integrante 2 | Cliente | MEDIA | 2 |
-| HU-10 | Idiomas | Integrante 4 | Encargado de seguimiento | BAJA | 2 |
-| HU-11 | Pantallas del hormiguero virtual | Integrante 6 | Gestor | ALTA | 3 |
-| HU-14 | Bomba | Integrante 1 | Entrenador | ALTA | 2 |
-| HU-15 | Configuración por archivo | Integrante 2 | Cliente | ALTA | 2 |
+| HU-02 | Presentar equipo | David Jumbo | Encargado de seguimiento | ALTA | 1 |
+| HU-04 | Leer coordenadas con loading | Kened Lugmaña | Encargado de pruebas | ALTA | 3 |
+| HU-07 | IA buscar arsenal | Daniel Mera | Consultor | ALTA | 3 |
+| HU-09 | Vuelo y fuente de poder | Karen Mosquera | Cliente | MEDIA | 2 |
+| HU-10 | Idiomas | David Jumbo | Encargado de seguimiento | BAJA | 2 |
+| HU-11 | Pantallas del hormiguero virtual | Leonel Morales | Gestor | ALTA | 3 |
+| HU-14 | Bomba | Sebastián Jibaja | Entrenador | ALTA | 2 |
+| HU-15 | Configuración por archivo | Karen Mosquera | Cliente | ALTA | 2 |
 
 ## Carga por integrante
 
 | Integrante | Rol XP | Día 1 | Día 2 | Total | Historias |
 |---|---|---|---|---:|---|
-| Integrante 1 | Entrenador | XP-01 (3), HU-06 (3) = 6 | HU-14 (2) = 2 | 8 | XP-01, HU-06, HU-14 |
-| Integrante 2 | Cliente | XP-02 (2), HU-01 (3) = 5 | HU-09 (2), HU-15 (2) = 4 | 9 | XP-02, HU-01, HU-09, HU-15 |
-| Integrante 3 | Encargado de pruebas | XP-05 (3), HU-03 (3) = 6 | HU-04 (3) = 3 | 9 | XP-05, HU-03, HU-04 |
-| Integrante 4 | Encargado de seguimiento | XP-03 (3), HU-05 (3) = 6 | HU-02 (1), HU-10 (2) = 3 | 9 | XP-03, HU-05, HU-02, HU-10 |
-| Integrante 5 | Consultor | XP-04 (2), HU-08 (2), HU-13 (2) = 6 | HU-07 (3) = 3 | 9 | XP-04, HU-08, HU-13, HU-07 |
-| Integrante 6 | Gestor | XP-06 (3), HU-12 (3) = 6 | HU-11 (3) = 3 | 9 | XP-06, HU-12, HU-11 |
+| Sebastián Jibaja | Entrenador | XP-01 (3), HU-06 (3) = 6 | HU-14 (2) = 2 | 8 | XP-01, HU-06, HU-14 |
+| Karen Mosquera | Cliente | XP-02 (2), HU-01 (3) = 5 | HU-09 (2), HU-15 (2) = 4 | 9 | XP-02, HU-01, HU-09, HU-15 |
+| Kened Lugmaña | Encargado de pruebas | XP-05 (3), HU-03 (3) = 6 | HU-04 (3) = 3 | 9 | XP-05, HU-03, HU-04 |
+| David Jumbo | Encargado de seguimiento | XP-03 (3), HU-05 (3) = 6 | HU-02 (1), HU-10 (2) = 3 | 9 | XP-03, HU-05, HU-02, HU-10 |
+| Daniel Mera | Consultor | XP-04 (2), HU-08 (2), HU-13 (2) = 6 | HU-07 (3) = 3 | 9 | XP-04, HU-08, HU-13, HU-07 |
+| Leonel Morales | Gestor | XP-06 (3), HU-12 (3) = 6 | HU-11 (3) = 3 | 9 | XP-06, HU-12, HU-11 |
 | **Total** | | **35** | **18** | **53** | 21 historias |
 
 La carga quedó equilibrada en 8 o 9 puntos por persona. El Día 1 es más pesado porque en él se construyen el framework y la base de la aplicación; el Día 2 deja margen para integrar, corregir y preparar la entrega.
