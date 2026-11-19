@@ -415,10 +415,9 @@ classDiagram
         String estado
         String creadaEn
     }
-    class TablaCsv {
-        ~filas() List
-        ~insertar(String[]) int
-        ~actualizar(int, UnaryOperator) void
+    class BaseDatos {
+        ~enTransaccion(Trabajo) T
+        ~getArchivo() Path
     }
     class GeneradorCsvGrupo
     class Bomba
@@ -445,7 +444,7 @@ classDiagram
     Autenticador ..> Claves
     Integrante ..> Claves
     PresentadorEquipo ..> Equipo
-    HormigueroServicio *-- TablaCsv : 4 tablas
+    HormigueroServicio *-- BaseDatos : hormiguero.db (SQLite)
     HormigueroServicio ..> HormigaRegistro : lista
     HormigueroServicio ..> Claves : hash con sal
     HormigueroServicio --> TipoHormiga

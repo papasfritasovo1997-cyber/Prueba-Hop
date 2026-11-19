@@ -7,7 +7,7 @@ Proyecto en dos partes independientes, desarrollado con Extreme Programming:
 | 1. Framework XP | `framework-xp/` | Dicta las directrices de XP y las verifica: backlog, plan, velocidad, parejas, tarjetas CRC y pruebas por historia. |
 | 2. Aplicación AntCiberDron | `antdron/` | Lo que pide el enunciado, con pantallas **JavaFX** y dockerizada. Funciona sin el framework. |
 
-Se trabaja en **Windows con VS Code**. No usa Maven ni ninguna herramienta de construcción: VS Code compila todo y JavaFX 21 ya viene en `lib/`.
+Se trabaja en **Windows con VS Code**. No usa Maven ni ninguna herramienta de construcción: VS Code compila todo, y JavaFX 21 y el controlador de SQLite ya vienen en `lib/`.
 
 ## Requisitos (Windows)
 
@@ -82,11 +82,11 @@ La imagen compila el proyecto y ejecuta todas las pruebas al construirse: si alg
 
 ```
 .vscode/        carpetas de fuentes, JavaFX y configuraciones de ejecución para VS Code
-lib/            JavaFX 21.0.5 para Windows (base, graphics, controls)
+lib/            JavaFX 21.0.5 para Windows (base, graphics, controls) y sqlite-jdbc 3.54.1.0
 framework-xp/   Parte 1: src/, pruebas/, docs/
 antdron/        Parte 2: src/, pruebas/
 config/         equipo.properties e integrantes.csv (cédulas)
-datos/          se genera: Grupo##.csv, automata-grupo##.md, hormiguero/
+datos/          se genera: Grupo##.csv, automata-grupo##.md, hormiguero/hormiguero.db (SQLite)
 xp/             artefactos XP que revisa el framework
 docker/, Dockerfile, docker-compose.yml
 ```

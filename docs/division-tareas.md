@@ -52,7 +52,7 @@ Cada comando implementa `ec.edu.epn.xp.ComandoXP` y se registra con una línea e
 | **HU-09** Vuelo y fuente de poder | Integrante 2 | `antciberdron` (`FuentePoder`, `TurboReactor`) | `PanelDron` (energía) |
 | **HU-10** Idiomas | Integrante 4 | `antciberdron` (`ModuloIdiomas`, `ExpertoParlante`, `Idioma`, `AspectoLinguistico`) | `PanelDron` (idiomas) |
 | **HU-11** Pantallas del hormiguero | Integrante 6 | `ui` (`VistaKgd`, `AntdronFx`, `VistaPrincipal`, `Ui`) | `VistaKgd` |
-| **HU-12** Persistencia | Integrante 6 | `persistencia` (`HormigueroServicio`, `TablaCsv`) | — |
+| **HU-12** Persistencia | Integrante 6 | `persistencia` (`HormigueroServicio`, `BaseDatos`, `esquema.sql`) | — |
 | **HU-13** Docker | Integrante 5 | `Dockerfile`, `docker/iniciar.sh`, `docker-compose.yml` | GUI en el navegador (noVNC) |
 | **HU-14** Bomba | Integrante 1 | `bomba.Bomba` | `PanelAutomata` |
 | **HU-15** Configuración por archivo | Integrante 2 | `MotorAntdron`, `App` (consola) | «Recargar configuración» |
