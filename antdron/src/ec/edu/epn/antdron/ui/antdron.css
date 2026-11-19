@@ -62,3 +62,29 @@
 
 .progress-bar > .bar { -fx-background-color: #f59e0b; }
 .lienzo { -fx-background-color: #0b1220; -fx-background-radius: 8; }
+
+/* Tablero XP */
+.cifra { -fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #f9fafb; }
+.columna-tablero {
+    -fx-background-color: #172033;
+    -fx-background-radius: 10;
+    -fx-border-color: #374151;
+    -fx-border-radius: 10;
+}
+.columna-por_hacer .subtitulo { -fx-text-fill: #fca5a5; }
+.columna-en_curso .subtitulo { -fx-text-fill: #fcd34d; }
+.columna-hecha .subtitulo { -fx-text-fill: #6ee7b7; }
+.columna-scroll, .columna-scroll > .viewport { -fx-background-color: transparent; -fx-background: transparent; }
+.tarea {
+    -fx-background-color: #1f2937;
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-border-width: 0 0 0 4;
+}
+.tarea-por_hacer { -fx-border-color: #ef4444; }
+.tarea-en_curso { -fx-border-color: #f59e0b; }
+.tarea-hecha { -fx-border-color: #10b981; }
+.tarea-texto { -fx-font-weight: bold; }
+.tarea-responsable { -fx-text-fill: #93c5fd; }
+.listo { -fx-text-fill: #6ee7b7; }
+.pendiente { -fx-text-fill: #9ca3af; }

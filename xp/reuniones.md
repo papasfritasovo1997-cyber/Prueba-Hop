@@ -1,6 +1,6 @@
 # Reuniones y rotación de parejas
 
-**Responsable:** Integrante 6 (Gestor) · **Prácticas XP:** Reuniones diarias de pie (stand-up) y rotación de parejas
+**Responsable:** Leonel Morales (Gestor) · **Prácticas XP:** Reuniones diarias de pie (stand-up) y rotación de parejas
 
 El Gestor convoca las reuniones, controla el tiempo y anota los acuerdos aquí. Las reuniones son **de pie y de máximo 10 minutos**: no se resuelven problemas en la reunión, se acuerda con quién se resuelven.
 
@@ -20,10 +20,10 @@ Cada día tiene dos bloques (mañana y tarde) y en cada bloque trabajan **tres p
 
 | Bloque | Ronda | Pareja A | Pareja B | Pareja C |
 |---|---:|---|---|---|
-| Día 1 · mañana | 1 | Integrante 1 – Integrante 6 | Integrante 2 – Integrante 5 | Integrante 3 – Integrante 4 |
-| Día 1 · tarde | 2 | Integrante 1 – Integrante 5 | Integrante 6 – Integrante 4 | Integrante 2 – Integrante 3 |
-| Día 2 · mañana | 3 | Integrante 1 – Integrante 4 | Integrante 5 – Integrante 3 | Integrante 6 – Integrante 2 |
-| Día 2 · tarde | 4 | Integrante 1 – Integrante 3 | Integrante 4 – Integrante 2 | Integrante 5 – Integrante 6 |
+| Día 1 · mañana | 1 | Sebastián Jibaja – Leonel Morales | Karen Mosquera – Daniel Mera | Kened Lugmaña – David Jumbo |
+| Día 1 · tarde | 2 | Sebastián Jibaja – Daniel Mera | Leonel Morales – David Jumbo | Karen Mosquera – Kened Lugmaña |
+| Día 2 · mañana | 3 | Sebastián Jibaja – David Jumbo | Daniel Mera – Kened Lugmaña | Leonel Morales – Karen Mosquera |
+| Día 2 · tarde | 4 | Sebastián Jibaja – Kened Lugmaña | David Jumbo – Karen Mosquera | Daniel Mera – Leonel Morales |
 
 Reglas:
 
@@ -46,7 +46,7 @@ Después, el Gestor anota **acuerdos**, **impedimentos** (con responsable y plaz
 
 ```text
 ## Reunión: <nombre> · <día y hora>
-Asistentes: Integrante 1, 2, 3, 4, 5, 6
+Asistentes: Sebastián Jibaja, Karen Mosquera, Kened Lugmaña, David Jumbo, Daniel Mera, Leonel Morales
 Duración: <min>
 Parejas del bloque: A-B / C-D / E-F
 
@@ -66,7 +66,7 @@ Puntos terminados en el bloque: <n> · Acumulado de la iteración: <n> de <plani
 - **Asistentes:** Integrantes 1 a 6 · **Duración:** 10 min
 - **Parejas del bloque:** 1–6, 2–5, 3–4 (ronda 1)
 - **Objetivo del día:** 35 puntos (13 historias).
-- **Avances:** el Cliente (Integrante 2) presentó el backlog `xp/historias.csv`; el Consultor (Integrante 5) propuso la metáfora «Hormiguero de guerra».
+- **Avances:** el Cliente (Karen Mosquera) presentó el backlog `xp/historias.csv`; el Consultor (Daniel Mera) propuso la metáfora «Hormiguero de guerra».
 - **Impedimentos:** ninguno.
 - **Acuerdos:**
   - Primero el núcleo del framework (XP-01) y el autómata (HU-06): son la base de lo demás.
@@ -78,7 +78,7 @@ Puntos terminados en el bloque: <n> · Acumulado de la iteración: <n> de <plani
 - **Asistentes:** Integrantes 1 a 6 · **Duración:** 10 min
 - **Parejas del bloque siguiente:** 1–5, 6–4, 2–3 (ronda 2)
 - **Avances:** núcleo y directrices en marcha; autenticación y generación de `Grupo##.csv` con sus pruebas.
-- **Impedimentos:** VS Code no reconocía JavaFX en una computadora porque se abrió una subcarpeta; siempre se abre la raíz del repositorio, donde están `.vscode/` y `lib/` (responsable: Integrante 5).
+- **Impedimentos:** VS Code no reconocía JavaFX en una computadora porque se abrió una subcarpeta; siempre se abre la raíz del repositorio, donde están `.vscode/` y `lib/` (responsable: Daniel Mera).
 - **Acuerdos:** cada pareja deja su historia con pruebas antes del cambio de ronda; el Encargado de seguimiento actualiza los estados en `xp/historias.csv`.
 
 ### Reunión: Inicio del Día 2 · Iteración 2
