@@ -1,6 +1,6 @@
 # Diagrama de clases
 
-**Responsable:** Integrante 4 (Encargado de seguimiento) · **Historias:** HU-05 (hormigas y alimentos) y HU-10 (idiomas).
+**Responsable:** David Jumbo (Encargado de seguimiento) · **Historias:** HU-05 (hormigas y alimentos) y HU-10 (idiomas).
 
 El código tiene **dos partes independientes**: la aplicación `antdron/` (JavaFX) y el framework `framework-xp/`. La aplicación no importa ninguna clase del framework. Los diagramas están divididos por tema para que se lean bien; las relaciones entre diagramas se indican en el texto.
 
@@ -415,10 +415,9 @@ classDiagram
         String estado
         String creadaEn
     }
-    class TablaCsv {
-        ~filas() List
-        ~insertar(String[]) int
-        ~actualizar(int, UnaryOperator) void
+    class BaseDatos {
+        ~enTransaccion(Trabajo) T
+        ~getArchivo() Path
     }
     class GeneradorCsvGrupo
     class Bomba
@@ -445,7 +444,7 @@ classDiagram
     Autenticador ..> Claves
     Integrante ..> Claves
     PresentadorEquipo ..> Equipo
-    HormigueroServicio *-- TablaCsv : 4 tablas
+    HormigueroServicio *-- BaseDatos : hormiguero.db (SQLite)
     HormigueroServicio ..> HormigaRegistro : lista
     HormigueroServicio ..> Claves : hash con sal
     HormigueroServicio --> TipoHormiga
