@@ -2,15 +2,13 @@ package ec.edu.epn.antdron.config;
 
 import java.io.IOException;
 import java.io.StringReader;
-import java.nio.ByteBuffer;
-import java.nio.charset.CharacterCodingException;
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
+
+import ec.edu.epn.antdron.pkAntCiberDronContract.Utility;
 
 /**
  * Lee la configuración que el equipo edita a mano:
@@ -35,7 +33,7 @@ public final class LectorConfiguracion {
             throw new IOException("No existe " + csv);
         }
         Properties p = new Properties();
-        try (StringReader r = new StringReader(leerTexto(propiedades))) {
+        try (StringReader r = new StringReader(Utility.leerTexto(propiedades))) {
             p.load(r);
         }
         String grupo = p.getProperty("grupo", "").trim();
@@ -46,17 +44,17 @@ public final class LectorConfiguracion {
             throw new IllegalArgumentException(ARCHIVO_EQUIPO + ": 'grupo' debe ser un número (ahora: '" + grupo + "')");
         }
         return new Equipo(numero, p.getProperty("nombre"), p.getProperty("metafora"),
-                parsearIntegrantes(leerTexto(csv).lines().toList()));
+                parsearIntegrantes(Utility.leerTexto(csv).lines().toList()));
     }
 
     public List<Integrante> parsearIntegrantes(List<String> lineas) {
         List<Integrante> integrantes = new ArrayList<>();
         for (int i = 0; i < lineas.size(); i++) {
             String linea = lineas.get(i).replace("\uFEFF", "").strip();
-            if (linea.isEmpty() || linea.startsWith("#") || linea.toLowerCase().startsWith("cedula;")) {
+            if (Utility.esLineaIgnorable(linea, "cedula;")) {
                 continue;
             }
-            String[] c = linea.split(";", -1);
+            String[] c = Utility.camposCsv(linea);
             if (c.length < 4 || c.length > 5) {
                 throw new IllegalArgumentException(ARCHIVO_INTEGRANTES + " línea " + (i + 1)
                         + ": se esperaban 5 campos separados por ';' (cedula;nombre;usuario;clave;rol)");
@@ -68,20 +66,5 @@ public final class LectorConfiguracion {
             }
         }
         return integrantes;
-    }
-
-    /**
-     * Lee un archivo editado a mano en Windows: acepta UTF-8 (con o sin BOM) y, si no lo es,
-     * ANSI/windows-1252, que es como Excel guarda «CSV (delimitado por comas)».
-     */
-    static String leerTexto(Path archivo) throws IOException {
-        byte[] bytes = Files.readAllBytes(archivo);
-        String texto;
-        try {
-            texto = StandardCharsets.UTF_8.newDecoder().decode(ByteBuffer.wrap(bytes)).toString();
-        } catch (CharacterCodingException e) {
-            texto = new String(bytes, Charset.forName("windows-1252"));
-        }
-        return texto.startsWith("\uFEFF") ? texto.substring(1) : texto;
     }
 }

@@ -47,6 +47,17 @@ class DockerizacionTest {
     }
 
     @Prueba
+    void vsCodeYDockerIncluyenElControladorSqlite() throws IOException {
+        String jar = "lib/sqlite-jdbc-3.54.1.0.jar";
+        Afirmar.verdadero(Files.isRegularFile(raiz().resolve(jar)), "falta " + jar);
+        Afirmar.contiene(Files.readString(raiz().resolve(".vscode/settings.json")), jar);
+        String dockerfile = Files.readString(raiz().resolve("Dockerfile"));
+        Afirmar.contiene(dockerfile, "COPY " + jar + " lib/");
+        Afirmar.contiene(dockerfile, "-cp 'bin:/opt/javafx/*:lib/*' ec.edu.epn.xp.XpCli probar");
+        Afirmar.contiene(Files.readString(raiz().resolve("docker/iniciar.sh")), "CP=\"bin:/opt/javafx/*:lib/*\"");
+    }
+
+    @Prueba
     void composeMontaConfigYDatos() throws IOException {
         String compose = Files.readString(raiz().resolve("docker-compose.yml"));
         Afirmar.contiene(compose, "\"6080:6080\"");
