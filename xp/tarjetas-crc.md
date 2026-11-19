@@ -1,6 +1,6 @@
 # Tarjetas CRC (Clase · Responsabilidades · Colaboradores)
 
-**Responsable:** Integrante 5 (Consultor) · **Práctica XP:** Tarjetas CRC
+**Responsable:** Daniel Mera (Consultor) · **Práctica XP:** Tarjetas CRC
 
 Hay una tarjeta por cada clase, interfaz, enumeración, registro y excepción de `antdron/src`. El encabezado de cada tarjeta debe ser exactamente `### Clase: NombreDeLaClase`: el comando `xp crc` lo usa para listar las clases sin tarjeta y las tarjetas de clases que ya no existen. Si se agrega o se borra una clase, se actualiza este archivo en la misma pareja.
 
@@ -380,16 +380,17 @@ La metáfora que ordena las tarjetas está en `xp/metafora.md`.
 
 | Responsabilidades | Colaboradores |
 |---|---|
-| Registrar usuarios con clave con sal y hash y crear su hormiguero | TablaCsv, Claves |
+| Registrar usuarios con clave con sal y hash y crear su hormiguero | BaseDatos, Claves |
 | Crear hormigas HLarva y listarlas por usuario | HormigaRegistro, HLarva |
 | Alimentar aplicando las reglas del dominio y guardar el historial | Hormiga, FabricaAlimentos, TipoHormiga |
+| Importar una vez los CSV de la versión anterior | BaseDatos |
 
-### Clase: TablaCsv
+### Clase: BaseDatos
 
 | Responsabilidades | Colaboradores |
 |---|---|
-| Crear el archivo CSV con su cabecera si no existe | HormigueroServicio |
-| Leer filas, insertar con id nuevo y actualizar una fila por id | HormigaRegistro |
+| Crear `hormiguero.db` y sus tablas con `esquema.sql` si no existen | HormigueroServicio |
+| Ejecutar cada operación en una transacción con las claves foráneas activas | Controlador sqlite-jdbc |
 
 ### Clase: HormigaRegistro
 

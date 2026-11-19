@@ -1,6 +1,6 @@
 # Framework XP · Guía de directrices
 
-**Responsable:** Integrante 1 (Entrenador / Coach) · **Historia:** XP-01
+**Responsable:** Sebastián Jibaja (Entrenador / Coach) · **Historia:** XP-01
 
 Este framework es la **Parte 1** del proyecto. Define *cómo* trabaja el equipo con Extreme Programming y trae herramientas para comprobar que se cumple. La **Parte 2** (la aplicación AntCiberDron) sigue estas directrices, pero **no depende del framework**: compila, se prueba y se ejecuta sin él.
 
