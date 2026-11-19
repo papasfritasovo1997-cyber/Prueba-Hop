@@ -12,6 +12,9 @@ services:
     volumes:
       - ./config:/opt/antdron/config
       - ./datos:/opt/antdron/datos
+      # El Tablero XP lee las tareas y las capturas de su carpeta: pulse «Actualizar» sin reconstruir.
+      - ./xp:/opt/antdron/xp
+      - ./docs:/opt/antdron/docs
 
   consola:
     image: antdron:latest
