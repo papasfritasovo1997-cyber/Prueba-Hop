@@ -19,7 +19,7 @@ HU-08;Armas en patas delanteras;KGD;cargar metralleta y láser;atacar por tierra
 HU-09;Vuelo y fuente de poder;KGD;volar con el turbo reactor;dominar el aire;MEDIA;2;2;TERMINADA;Integrante 2;Turbo reactor en la espalda consume energía|Recarga y reemplazo asistidos por la IIA
 HU-10;Idiomas;experto parlante;entrenar léxico, gramática y fonética;que el AntCiberDron hable inglés y español;BAJA;2;2;TERMINADA;Integrante 4;Solo expertos del idioma pueden entrenarlo
 HU-11;Pantallas del hormiguero virtual;usuario KGD;registrarme y crear mis hormigas;tener mi hormiguero virtual;ALTA;3;2;TERMINADA;Integrante 6;Registro e ingreso|Crear HLarva|Alimentar y ver su estado
-HU-12;Persistencia;usuario KGD;que mi hormiguero se guarde;no perder mis hormigas;MEDIA;3;1;TERMINADA;Integrante 6;Tablas CSV según el modelo ER|Claves con sal y hash
+HU-12;Persistencia;usuario KGD;que mi hormiguero se guarde;no perder mis hormigas;MEDIA;3;1;TERMINADA;Integrante 6;Tablas SQLite según el modelo ER|Claves con sal y hash
 HU-13;Aplicación dockerizada;profesor;ejecutar la aplicación con Docker;probarla sin instalar Java;ALTA;2;1;TERMINADA;Integrante 5;docker compose up abre la GUI en el navegador|docker compose run consola
 HU-14;Bomba;KGD;que la bomba use el autómata;destruir exclusivamente el arsenal definido;ALTA;2;2;TERMINADA;Integrante 1;Explota solo en coordenadas objetivo|Y solo si el autómata acepta el arsenal
 HU-15;Configuración por archivo;equipo;escribir las cédulas en un archivo;que el programa genere todo lo demás;ALTA;2;2;TERMINADA;Integrante 2;Cédulas vacías permitidas con aviso|Regenera Grupo##.csv, bomba y autómata al recargar

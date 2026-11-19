@@ -4,7 +4,7 @@
 #   consola  versión de consola (requiere docker compose run con -it)
 #   otro     comando del framework XP (probar, verificar, backlog, ...)
 cd /opt/antdron || exit 2
-CP="bin:/opt/javafx/*"
+CP="bin:/opt/javafx/*:lib/*"
 modo=${1:-gui}
 
 case "$modo" in
